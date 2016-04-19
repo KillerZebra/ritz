@@ -2,7 +2,7 @@
 	
 	$dataArray = array();
 	$numberOfBlogs = 0;
-	include "connectToDB.php";
+	include "../../database/connectToDB.php";
 
 	$page = $_GET["pages"];
 	$offset = ($page * 2) - 3;

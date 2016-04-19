@@ -1,6 +1,6 @@
 <?php
 
-	include "connectToDB.php";
+	include "../../database/connectToDB.php";
 	session_set_cookie_params(6000);
 
 	session_start();

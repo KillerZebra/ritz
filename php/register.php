@@ -1,6 +1,6 @@
 <?php
 
-	include "connectToDB.php";
+	include "../../database/connectToDB.php";
 
 	$fName = $_POST["fName"];
 	$lName = $_POST["lName"];

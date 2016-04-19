@@ -1,6 +1,6 @@
 <?php
 
-	include "connectToDB.php";
+	include "../../database/connectToDB.php";
 
 
 	if(isset($_POST["email"]))

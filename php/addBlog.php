@@ -1,6 +1,6 @@
 <?php
 	
-	include_once("connectToDB.php");
+	include "../../database/connectToDB.php";
 
 	$author = $_POST['author'];
 	$date = date("Y-m-d");
