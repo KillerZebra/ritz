@@ -1,0 +1,70 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta name="keywords" content="" />
+	<meta name="description" content="" />
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<title>R.I.T.Z</title>
+	<link href="css/regstyle.css" rel="stylesheet" type="text/css"  />
+	<script src="jquery/jquery.min.js"></script>
+
+</head>
+<body>
+<div id="wrapper">
+	<div id="header">
+		<div id="accounts">
+			<ul>
+				<li><a href="Login.html"> Login </a></li>
+				<li><a href="Register.html"> Register </a></li>
+			</ul>
+		</div>
+		<div id="logo">
+			<img src="images/mainlogo.png" />
+		</div>
+
+	</div>
+	<!-- end #header -->
+	<div id="navigation">
+		<ul>
+			<li class="current_page_item"><a href="index.html">Home</a></li>
+			<li><a href="media.html">Our Videos</a></li>
+			<li><a href="#">Photos</a></li>
+			<li><a href="#">About</a></li>
+			<li><a href="#">Links</a></li>
+			<li><a href="#">Contact</a></li>
+		</ul>
+	</div>
+	<!-- end #menu -->
+	<div id="page">
+		<div id="content">
+			<div id="error">
+			</div>
+
+			<form id="regForm" method="post">
+				<label for="firstName">First name:</label>
+					<input type="text" name="fName" id="fName">
+				<label for="lastName">Last name:</label>
+				  	<input type="text" name="lName" id="lName"><br />
+				<label for="username">Username:</label>
+				  	<input type="text" name="uName" id="uName"><img src="" class="loading" id="loading1"><br />
+				<label for="email">Email: </label>
+				  	<input type="text" name="email" id="email"><img src="" class="loading" id="loading2"><br />
+				<label for="password">Password:</label>
+				  	<input type="password" name="pass" id="pass"><br />
+				<label for="password">Confirm Password:</label>
+					<input type="password" name="cpass" id="cpass"><br />
+
+					<input type="submit" value="submit" id="submit">
+			</form> 
+
+			<script type="text/javascript" src="js/formValidate.js"> </script>
+
+		</div>
+	</div>
+	<!-- end #page -->
+</div>
+<div id="footer">
+	<p>Copyright (c) </p>
+</div>
+<!-- end #footer -->
+</body>
+</html>

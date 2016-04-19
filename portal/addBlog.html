@@ -1,0 +1,79 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta name="keywords" content="" />
+	<meta name="description" content="" />
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<title>R.I.T.Z</title>
+	<link href="../css/portalStyle2.css" rel="stylesheet" type="text/css"  />
+  <link href="../js/tinymce/skins/lightgray/content.min.css" rel="stylesheet" type="text/css"  />
+
+
+	<script src="../jquery/jquery.min.js"></script>
+	<script type="text/javascript" src="../js/addBlog.js"></script>
+  <script type="text/javascript" src="../js/blogController.js"></script>
+
+
+	<!-- tinymce -->
+  <script src='../js/tinymce/tinymce.min.js'></script>
+
+
+</head>
+<body>
+<div id="body">
+	<div id="header">
+		<div id="accounts">
+			<ul>
+				<li><div id="loginTrigger"> Login </div></li>
+					<div id="LoginFormPopup"> 
+						<form id="loginForm" method="post">
+			                <input type="image" id="closeLogin" src="../images/close.png">
+			                <input type="text" id="login" placeholder="Email or Username" name="login">
+			                <input type="password" id="password" name="password" placeholder="*******">
+							<input type="button" value="submit" id="submit">
+			            </form>
+						<script type="text/javascript" src="../js/loginPopup.js"> </script>
+
+					</div>
+				<li><a href="Register.html"> Register </a></li>
+			</ul>
+		</div>
+		<div id="logo">
+			<img src="../images/mainlogo.png" />
+		</div>
+
+	</div>
+	<!-- end #header -->
+	<div id="navigation">
+		<ul>
+			<li class="current_page_item"><a href="../index.html">Home</a></li>
+			<li><a href="media.html">Our Videos</a></li>
+			<li><a href="#">Photos</a></li>
+			<li><a href="#">About</a></li>
+			<li><a href="#">Links</a></li>
+			<li><a href="#">Contact</a></li>
+		</ul>
+	</div>
+	<!-- end #menu -->
+	<div id="page">
+		<div id="content">
+			<div id="blogFormSection">
+				<form id="blogForm">
+          <label for="title" id="titleLabel">Title: </label>
+          <input type="text" id="title"><br />
+				</form>
+          <label for="tinymceEditor" id="mceContent">Content: </label>
+          <textarea id="tinymceEditor"></textarea>
+          <div id="buttons">
+            <input type="button" value="Submit" id="formSubmit">
+          </div>
+			</div>
+
+		</div>
+	</div>
+	<!-- end #page -->
+<div id="footer">
+	<p>Copyright (c) </p>
+</div>
+<!-- end #footer -->
+</body>
+</html>
