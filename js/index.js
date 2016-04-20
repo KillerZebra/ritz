@@ -87,13 +87,10 @@ function loadPage(pageNumber)
 
                pagination(data.blogs[0]['count']);
             
-           
-
-            //$("#title1").html(title);
          },
          error: function(response)
          {
-            window.location.href = "index.html";
+            console.log(response);
          }
 
    });
