@@ -60,16 +60,12 @@ function showPage(data)
    		$.ajax(
    		{
    			type: "POST",
-   			url: "../php/addBlog.php",
-   			data: {author:author, title:title, blog:content},
+   			url: "../php/blogs.php",
+   			data: {action:"addBlog",author:author, title:title, blog:content},
    			dataType: "JSON",
    			success: function(data)
    			{
    				console.log("SUCCESS");
-   			},
-   			error: function(error)
-   			{
-   				console.log(error);
    			}
 
    		});

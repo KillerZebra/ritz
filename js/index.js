@@ -42,6 +42,7 @@ function pagination(pages)
 
 function loadPage(pageNumber)
 {
+
    if(pageNumber == null)
    {
       pageNumber = 1;
@@ -51,7 +52,7 @@ function loadPage(pageNumber)
    {
          type: "GET",
          url: "php/blogs.php",
-         data: {pages:pageNumber},
+         data: {action:"getBlog" , pages:pageNumber},
          dataType: "json",
          success: function(data)
          {

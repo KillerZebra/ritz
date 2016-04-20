@@ -274,7 +274,7 @@ a {
     margin-bottom: 30px;
 }
 
-#formSubmit
+#formSubmit, #deleteBlog
 {
 	margin-top: 25px;
 	width: 200px;
@@ -298,6 +298,29 @@ a {
 	width: 25px;
 
 }
+
+#list
+{
+	width: 600px;
+	margin: 0 auto;
+}
+
+#list tr th
+{
+	border: 1px solid gray;
+
+}
+
+#list tr td
+{
+	color: white;
+}
+
+#list tr td:last-child
+{
+	text-align: center;
+}
+
 /* Footer */
 
 #footer {

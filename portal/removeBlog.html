@@ -5,10 +5,9 @@
 	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 	<title>R.I.T.Z</title>
 	<link href="../css/portalStyle2.css" rel="stylesheet" type="text/css"  />
+		<script type="text/javascript" src="../jquery/jquery.min.js"></script>
+	<script type="text/javascript" src="../js/removeBlog.js"></script>
 
-
-	<script src="../jquery/jquery.min.js"></script>
-	<script src="../js/removeBlog.js"></script>
 
 </head>
 <body>
@@ -49,8 +48,17 @@
 	<!-- end #menu -->
 	<div id="page">
 		<div id="content">
-
-
+			<table id="list">
+				<tr>
+					<th>Blog Name</th>
+					<th>Author</th>
+					<th>Date</th>
+					<th>Remove</th>
+				</tr>
+			</table>
+			<div id="buttons">
+				<input type="button" value="Delete" id="deleteBlog">
+			</div>
 		</div>
 	</div>
 </div>
