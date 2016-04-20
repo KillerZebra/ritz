@@ -32,7 +32,7 @@ function showPage(data)
 
    $.ajax(
    {
-      type: "GET",
+      type: "POST",
       url: "../php/blogs.php",
       data: {action:"allBlogs"},
       dataType: "JSON",
@@ -55,8 +55,8 @@ function listBlogs(list)
             var cell1 = list[key][x]['title'];
             var cell2 = list[key][x]['author'];
             var cell3 = list[key][x]['date'];
-            var cell4 = "<input type=checkbox id=box" +x+">&nbsp;"
-            $("#list tr:last").after("<tr id=row"+x+"><td>" + cell1 + "</td><td>" + cell2 + "</td><td>" + cell3 + "</td><td>" + cell4 + "</td></tr>");
+            var cell4 = "<input type=checkbox id=box" +list[key][x]['blogID']+">&nbsp;"
+            $("#list tr:last").after("<tr id=row"+list[key][x]['blogID']+"><td>" + cell1 + "</td><td>" + cell2 + "</td><td>" + cell3 + "</td><td>" + cell4 + "</td></tr>");
 
          }
       }
@@ -68,17 +68,24 @@ function listBlogs(list)
 
 function removeBlogs()
 {  
-   var check;
-   console.log(json);
-   for(var x = 0; x <= numberOfBlogs; x++)
+   $("#list tr").each(function(i , row)
    {
 
-      if( $("#box"+x).is(":checked") )
+      var row = $(row),
+      checkedBoxes = row.find('input:checked');
+      checkedBoxes.each(function (i, checkbox) 
       {
-         
-         $("#row" + x).remove();
-               
-      }
-   }
+         var id = $(this).attr('id').replace("box","");
+         row.remove();
+         $.ajax(
+         {
+            type: "POST",
+            url: "../php/blogs.php",
+            data: {action:"removeBlog",blogId:id},
+            dataType: "JSON",
+         });
+
+      });
+   });
 
 }

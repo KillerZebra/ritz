@@ -50,7 +50,7 @@ function loadPage(pageNumber)
 
    $.ajax(
    {
-         type: "GET",
+         type: "POST",
          url: "php/blogs.php",
          data: {action:"getBlog" , pages:pageNumber},
          dataType: "json",

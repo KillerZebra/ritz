@@ -4,7 +4,7 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 */
-	$action = $_GET["action"];
+	$action = $_POST["action"];
 
 	switch ($action)
 	{
@@ -17,6 +17,9 @@ error_reporting(E_ALL);
 		case 'allBlogs':
 			allBlogs();
 			break;
+		case 'removeBlog':
+			removeBlog();
+			break;
 	}
 
 
@@ -28,7 +31,7 @@ error_reporting(E_ALL);
 		$dataArray = array();
 		$numberOfBlogs = 0;
 
-		$page = $_GET["pages"];
+		$page = $_POST["pages"];
 		$offset = ($page * 3) - 3;
 
 		$query = "SELECT SQL_CALC_FOUND_ROWS * FROM `blogs` ORDER BY `date` DESC LIMIT 3 OFFSET $offset ";
@@ -91,6 +94,15 @@ error_reporting(E_ALL);
 			echo json_encode(array('blogs' => $dataArray));
 		}
 
+	}
+
+	function removeBlog()
+	{
+		include "../../database/connectToDB.php";
+		$id = $_POST['blogId'];
+
+		/* delete rows */
+		mysqli_query($connect, "DELETE FROM `blogs` WHERE `blogID`='$id' LIMIT 1");
 	}
 
 
