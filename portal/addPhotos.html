@@ -6,7 +6,7 @@
 	<title>R.I.T.Z</title>
 	<link href="../css/photoStyle.css" rel="stylesheet" type="text/css"  />
 	<script src="../jquery/jquery.min.js"></script>
-	<script src="../js/photo.js"></script>
+	<script src="../js/photos.js"></script>
 
 </head>
 <body>
@@ -14,8 +14,18 @@
 	<div id="header">
 		<div id="accounts">
 			<ul>
-				<li><a href="../Login.html"> Login </a></li>
-				<li><a href="../Register.html"> Register </a></li>
+				<li><div id="loginTrigger"> Login </div></li>
+					<div id="LoginFormPopup"> 
+						<form id="loginForm" method="post">
+			                <input type="image" id="closeLogin" src="images/close.png">
+			                <input type="text" id="login" placeholder="Email or Username" name="login">
+			                <input type="password" id="password" name="password" placeholder="*******">
+							<input type="button" value="submit" id="submit">
+			            </form>
+						<script type="text/javascript" src="js/loginPopup.js"> </script>
+
+					</div>
+				<li><a href="Register.html"> Register </a></li>
 			</ul>
 		</div>
 		<div id="logo">
@@ -40,7 +50,19 @@
 			<div id="error">
 			</div>
 
-
+			<form id="photoForm">
+			<label for="group">Select Group</label>
+				<select id="group" name="cars">
+			  		<option value="weddings">Weddings</option>
+			    	<option value="graduation">Graduation</option>
+			   		 <option value="engagement">Engagement</option>
+			    	<option value="family">Family</option>
+			  	</select>
+			<label for="album">Album Name</label>
+				<input type="text" id="album">
+			<label for"photos">Upload Photos</label>
+				<input type="file" id="photos" multiple>
+			</form>
 
 		</div>
 	</div>

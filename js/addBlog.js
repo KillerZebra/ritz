@@ -2,7 +2,7 @@ $(document).ready(function()
 {
 	$.ajax(
       {
-         type: "GET",
+         type: "POST",
          url: "../php/checkSession.php",
          data: "",
          dataType: "json",
