@@ -17,12 +17,12 @@
 				<li><div id="loginTrigger"> Login </div></li>
 					<div id="LoginFormPopup"> 
 						<form id="loginForm" method="post">
-			                <input type="image" id="closeLogin" src="images/close.png">
+			                <input type="image" id="closeLogin" src="../images/close.png">
 			                <input type="text" id="login" placeholder="Email or Username" name="login">
 			                <input type="password" id="password" name="password" placeholder="*******">
 							<input type="button" value="submit" id="submit">
 			            </form>
-						<script type="text/javascript" src="js/loginPopup.js"> </script>
+						<script type="text/javascript" src="../js/loginPopup.js"> </script>
 
 					</div>
 				<li><a href="Register.html"> Register </a></li>
@@ -51,17 +51,19 @@
 			</div>
 
 			<form id="photoForm">
-			<label for="group">Select Group</label>
-				<select id="group" name="cars">
-			  		<option value="weddings">Weddings</option>
-			    	<option value="graduation">Graduation</option>
-			   		 <option value="engagement">Engagement</option>
-			    	<option value="family">Family</option>
-			  	</select>
-			<label for="album">Album Name</label>
-				<input type="text" id="album">
-			<label for"photos">Upload Photos</label>
-				<input type="file" id="photos" multiple>
+				<label for="group" class="label">Select Group</label>
+					<select id="group" name="group">
+						<option selected disabled value> -- select an option -- </option>
+				  		<option value="weddings">Weddings</option>
+				    	<option value="graduation">Graduation</option>
+				   		<option value="engagement">Engagement</option>
+				    	<option value="family">Family</option>
+				  	</select><br />
+				<label for="album" class="label">Album Name</label>
+					<input type="text" id="album"><br />
+				<label for"photos" class="label">Upload Photos</label>
+					<input type="file" name="upload[]" id="photos" multiple="true" /><br />
+				<input type="button" value="submit" id="photoSubmit">
 			</form>
 
 		</div>

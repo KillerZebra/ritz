@@ -290,6 +290,23 @@ a {
 	cursor: pointer;
 }
 
+#photoSubmit
+{
+   margin-top: 5px; 
+   margin-left: 40px;
+   width: 250px;
+   height: 40px;
+   border:none;
+   border-radius:3px;
+   color:#E6E6E6;
+   background-color:grey;
+   font-size:20px;
+}
+
+#photoSubmit:hover
+{
+	cursor: pointer;
+}
 .loading
 {
 	margin-left: 5px;
