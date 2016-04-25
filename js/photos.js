@@ -27,7 +27,15 @@ $(document).ready(function()
 		var album = $("#album").val();
 		var files = $('#photos').prop("files");
 		var names = $.map(files, function(val) { return val.name; });
-		console.log(names);
+		if(group != null && album != "" && files.length > 0)
+		{
+			uploadPhotos(group,album,names);
+
+		}
+		else
+		{
+			console.log("error");
+		}
 	});
 
 
@@ -36,5 +44,10 @@ $(document).ready(function()
 function loadPage()
 {
 	document.getElementById("content").style.visibility = "visible";
+
+}
+
+function uploadPhotos(group, album, names)
+{
 
 }
