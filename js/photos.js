@@ -25,14 +25,9 @@ $(document).ready(function()
 	{
 		var group = $("#group").val();
 		var album = $("#album").val();
-		var filesUpload = document.getElementById("photos");
-		filesUpload.onchange = function () 
-		{
-
-			var files = this.files;
-
-		};
-		console.log(files);
+		var files = $('#photos').prop("files");
+		var names = $.map(files, function(val) { return val.name; });
+		console.log(names);
 	});
 
 
