@@ -29,6 +29,20 @@ $(document).ready(function()
 		var names = $.map(files, function(val) { return val.name; });
 		if(group != null && album != "" && files.length > 0)
 		{
+			$.ajax(
+			{
+				type: "POST".
+				url: "../php/photos.php",
+				data: {action:"checkDupe" , groupName:group , albumName:album},
+				dataType: "JSON",
+				success: function(data)
+				{
+
+					uploadPhotos(group,album,names);
+
+				}
+
+			});
 			uploadPhotos(group,album,names);
 
 		}
