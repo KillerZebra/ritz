@@ -26,24 +26,28 @@ $(document).ready(function()
 		var group = $("#group").val();
 		var album = $("#album").val();
 		var files = $('#photos').prop("files");
-		var names = $.map(files, function(val) { return val.name; });
 		if(group != null && album != "" && files.length > 0)
 		{
 			$.ajax(
 			{
-				type: "POST".
+				type: "POST",
 				url: "../php/photos.php",
-				data: {action:"checkDupe" , groupName:group , albumName:album},
+				data: {action:"checkExist" , groupName:group , albumName:album},
 				dataType: "JSON",
 				success: function(data)
 				{
-
-					uploadPhotos(group,album,names);
+					if (data[0] == "true")
+					{
+						console.log("Folder Name already exists");
+					}
+					else if (data[0] == "false")
+					{
+						uploadPhotos(group,album,files);
+					}
 
 				}
 
 			});
-			uploadPhotos(group,album,names);
 
 		}
 		else
@@ -61,7 +65,18 @@ function loadPage()
 
 }
 
-function uploadPhotos(group, album, names)
+function uploadPhotos(group, album, files)
 {
+	$.ajax(
+	{
+		method: "POST",
+		url: "../php/photos.php",
+		data: {action:"upload" , groupName:group , albumName:album , files:files},
+		dataType: "JSON",
+		success: function(data)
+		{
+			console.log(data);
+		}
+	});
 
 }
