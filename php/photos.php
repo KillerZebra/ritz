@@ -4,18 +4,30 @@
 	ini_set('display_startup_errors', 1);
 	error_reporting(E_ALL);
 	
-	$action = $_POST['action'];
 
-	switch ($action)
+	if(isset($_POST['action']))
 	{
-		case 'checkExist':
-			checkForDupes();
-			break;
-		case 'upload':
-			uploadFile();
-			break;
-	}
+		$action = $_POST['action'];
 
+		switch ($action)
+		{
+			case 'checkExist':
+				checkForDupes();
+				break;
+			case 'upload':
+				uploadFile();
+				break;
+		}
+	}
+	else
+	{
+		if(!isset($_FILES['files']['error']))
+		{
+			$dir = "../images/uploads";
+			$target_file = $dir . basename($_FILES["files"]["name"]);
+		}
+	
+	}
 
 	function checkForDupes()
 	{
@@ -51,7 +63,7 @@
 				include "../../database/connectToDB.php";
 		$group = $_POST['groupName'];
 		$album = $_POST['albumName'];
-		$files = $_POST['files'];
+		$name = $_POST['fileName'];
 
 
 		//echo $files;

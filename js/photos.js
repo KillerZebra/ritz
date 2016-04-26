@@ -26,6 +26,7 @@ $(document).ready(function()
 		var group = $("#group").val();
 		var album = $("#album").val();
 		var files = $('#photos').prop("files");
+		var names = $.map(files, function(val) { return val.name; });
 		if(group != null && album != "" && files.length > 0)
 		{
 			$.ajax(
@@ -42,12 +43,13 @@ $(document).ready(function()
 					}
 					else if (data[0] == "false")
 					{
-						uploadPhotos(group,album,files);
+						uploadPhotos(group,album,files,names);
 					}
 
 				}
 
 			});
+			
 
 		}
 		else
@@ -65,18 +67,33 @@ function loadPage()
 
 }
 
-function uploadPhotos(group, album, files)
+function uploadPhotos(group, album, files, names)
 {
 	$.ajax(
 	{
 		method: "POST",
 		url: "../php/photos.php",
-		data: {action:"upload" , groupName:group , albumName:album , files:files},
+		data: {action:"upload" , groupName:group , albumName:album , fileName:names},
 		dataType: "JSON",
 		success: function(data)
 		{
 			console.log(data);
 		}
 	});
+
+	$.ajax(
+	{
+		method: "POST",
+		url: "../php/photos.php",
+		data: {files:files},
+		dataType: "JSON",
+		contentType: false,
+    	processData: false,
+		success: function(data)
+		{
+			console.log(data);
+		}
+	});
+
 
 }
