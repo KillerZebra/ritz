@@ -21,10 +21,19 @@
 	}
 	else
 	{
-		if(!isset($_FILES['files']['error']))
+		if(isset($_FILES['files']))
 		{
-			$dir = "../images/uploads";
-			$target_file = $dir . basename($_FILES["files"]["name"]);
+			$temp = $_SERVER['DOCUMENT_ROOT'] . "/images/uploads/";
+			foreach ($_FILES["files"]["error"] as $key) 
+			{
+
+        			$tmp_name = $_FILES["files"]["tmp_name"][$key];
+        			$name = $_FILES["files"]["name"][$key];
+        			move_uploaded_file($tmp_name, "$temp/$name");
+  				
+			}
+
+	        echo "hi";
 		}
 	
 	}
