@@ -31,8 +31,8 @@ $(document).ready(function()
 		var fData = new FormData();
 
 		fData.append('action','uploadFile');
-		fData.append('group',group);
-		fData.append('album',album);
+		fData.append('groupName',group);
+		fData.append('albumName',album);
 		$.each($("input[type=file]"), function(i, obj) 
 		{
 		        $.each(obj.files,function(j,file)
