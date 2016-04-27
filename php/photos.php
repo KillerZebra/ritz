@@ -8,21 +8,28 @@
 	if(isset($_POST['action']))
 	{
 		$action = $_POST['action'];
-
-		switch ($action)
-		{
-			case 'checkExist':
-				checkForDupes();
-				break;
-			case 'upload':
-				uploadFile();
-				break;
-		}
 	}
 	else
 	{
+		var_dump($_FILES);
+		//$action = $_FILES['file']['action'];
+	}
+
+	switch ($action)
+	{
+		case 'checkExist':
+			checkForDupes();
+			break;
+		case 'uploadFile':
+			uploadFile();
+			break;
+	}
+	
+	
+		/*
 		if(isset($_FILES['files']))
 		{
+
 			$temp = $_SERVER['DOCUMENT_ROOT'] . "/images/uploads/";
 			foreach ($_FILES["files"]["error"] as $key) 
 			{
@@ -33,10 +40,10 @@
   				
 			}
 
-	        echo "hi";
 		}
+		*/
 	
-	}
+	
 
 	function checkForDupes()
 	{
@@ -69,11 +76,11 @@
 	function uploadFile()
 	{
 
-				include "../../database/connectToDB.php";
+		include "../../database/connectToDB.php";
 		$group = $_POST['groupName'];
 		$album = $_POST['albumName'];
 		$name = $_POST['fileName'];
-
+		echo "hi";
 
 		//echo $files;
 	}
