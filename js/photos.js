@@ -90,17 +90,6 @@ function loadPage()
 
 function uploadPhotos(group, album, fData, names)
 {
-	$.ajax(
-	{
-		method: "POST",
-		url: "../php/photos.php",
-		data: {action:"upload" , groupName:group , albumName:album , fileName:names},
-		dataType: "JSON",
-		success: function(data)
-		{
-			console.log(data);
-		}
-	});
 
 	$.ajax(
 	{
