@@ -51,10 +51,28 @@
 
 	function uploadFile()
 	{
-
 		include "../../database/connectToDB.php";
-		var_dump($_FILES);
-		//echo $files;
+		$group = $_POST['groupName'];
+		$album = $_POST['albumName'];
+		$location = $_SERVER['DOCUMENT_ROOT'] . "ritz/images/uploads/" . $group . "/" . $album;
+
+		//var_dump($_FILES);
+		//echo json_encode($group . " " . $album);
+
+		foreach ($_FILES["photo"]["tmp_name"] as $key => $value)
+		{
+			//var_dump($value);
+			
+			$temp = $_FILES["photo"]["tmp_name"][$key];
+			$name = $_FILES["photo"]["name"][$key];
+			if (!file_exists($location)) 
+			{
+    			mkdir($location, 0777, true);
+			}
+			move_uploaded_file($temp, $location."/".$name);
+			
+		}
+
 	}
 
 ?>
