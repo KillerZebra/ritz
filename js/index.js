@@ -13,6 +13,7 @@ $(document).ready(function()
          {
             
             $("#loginTrigger").html('Welcome ' + data.info['fName']);
+            memberAccess();
 
 
          },
@@ -94,6 +95,11 @@ function loadPage(pageNumber)
          }
 
    });
+}
+
+function memberAccess()
+{
+   $("#navigation ul li:last").after("<li><a href='portal.html'>Portal</a></li>");
 }
 
 

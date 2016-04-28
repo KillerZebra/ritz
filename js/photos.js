@@ -1,12 +1,5 @@
 $(document).ready(function()
 {
-/*
-	var OSName = "Unknown";
-	if (navigator.appVersion.indexOf("Win")!=-1) OSName="Windows";
-	else if (navigator.appVersion.indexOf("Mac")!=-1) OSName="MacOS";
-	console.log('Your OS is: '+OSName);
-	*/
-
 	$.ajax(
 	{
 		type: "POST",
@@ -16,6 +9,8 @@ $(document).ready(function()
 		success: function(data)
 		{	
 			$("#loginTrigger").html("Welcome " + data.info['fName']);
+			$("#navigation ul li:last").after("<li><a href='portal.html'>Portal</a></li>");
+
 			loadPage();
 		}
 		
@@ -40,12 +35,6 @@ $(document).ready(function()
 		            fData.append('photo['+j+']', file);
 		        });
 		});
-
-		for(var pair of fData.entries()) 
-		{
-   				console.log(pair[0]+ ', '+ pair[1]); 
-
-		}
 
 
 		if(group != null && album != "" && files.length > 0)

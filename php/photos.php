@@ -4,6 +4,7 @@
 	ini_set('display_startup_errors', 1);
 	error_reporting(E_ALL);
 	
+	
 
 	if(isset($_POST['action']))
 	{
@@ -55,23 +56,49 @@
 		$group = $_POST['groupName'];
 		$album = $_POST['albumName'];
 		$location = $_SERVER['DOCUMENT_ROOT'] . "ritz/images/uploads/" . $group . "/" . $album;
-
-		//var_dump($_FILES);
-		//echo json_encode($group . " " . $album);
-
-		foreach ($_FILES["photo"]["tmp_name"] as $key => $value)
-		{
-			//var_dump($value);
-			
-			$temp = $_FILES["photo"]["tmp_name"][$key];
-			$name = $_FILES["photo"]["name"][$key];
-			if (!file_exists($location)) 
+		$error = array();
+		
+			foreach ($_FILES["photo"]["tmp_name"] as $key => $value)
 			{
-    			mkdir($location, 0777, true);
+				//var_dump($_FILES);
+				if(!empty($_FILES["photo"]["error"][$key]))
+				{
+					$error[] = $_FILES["photo"]["error"][$key] ;
+				}
+				if($_FILES["photo"]["size"][$key] > 2097152)
+				{
+					$error[] = "File is too large. Limit 2 MB";
+				}
+
+				print_r($error);
+				if(empty($error))
+				{
+					$temp = $_FILES["photo"]["tmp_name"][$key];
+					$name = $_FILES["photo"]["name"][$key];
+					$fileLocation = $location . "/" . $name;
+					if (!file_exists($location)) 
+					{
+		    			mkdir($location, 0777, true);
+		    			echo "make the locatuin?";
+					}
+					else
+					{
+						if(file_exists($fileLocation))
+						{
+							$error[] = "The file $name already exists. Please rename the file.";
+						}
+					}
+
+					if(empty($error))
+					{
+						move_uploaded_file($temp, $location."/".$name);
+
+					}
+					
+				}
+				
 			}
-			move_uploaded_file($temp, $location."/".$name);
-			
-		}
+		
 
 	}
 
