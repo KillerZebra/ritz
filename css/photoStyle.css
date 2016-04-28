@@ -293,6 +293,11 @@ select
 
 }
 
+#error
+{
+	color: red;
+}
+
 #list
 {
 	width: 600px;

@@ -90,9 +90,32 @@ function uploadPhotos(group, album, fData, names)
     	processData: false,
 		success: function(data)
 		{
-			console.log(data);
+			printResults(data);
 		}
 	});
 
 
+}
+
+function printResults(data)
+{
+	for (var x = 0; x < data.results.length; x++) 
+	{
+		for (var y = 0; y < data.results[x].length; y++)
+		{
+			if(data.results[x][y].contains("SUCCESS"))
+			{
+				$("#success").append("-----------------------");
+				$("#success").append(data.results[x][y]);
+			}
+			else
+			{
+				$("#error").append("-----------------------");
+				$("#error").append(data.results[x][y] + "</br>");
+			}
+			
+		}
+		$("#success").append("<br />");
+
+	}
 }

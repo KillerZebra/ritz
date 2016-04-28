@@ -55,50 +55,56 @@
 		include "../../database/connectToDB.php";
 		$group = $_POST['groupName'];
 		$album = $_POST['albumName'];
-		$location = $_SERVER['DOCUMENT_ROOT'] . "ritz/images/uploads/" . $group . "/" . $album;
-		$error = array();
-		
+		$location = $_SERVER['DOCUMENT_ROOT'] . "/ritz/images/uploads/" . $group . "/" . $album;
+		$message = array();
+
 			foreach ($_FILES["photo"]["tmp_name"] as $key => $value)
 			{
+				$x = 0;
 				//var_dump($_FILES);
 				if(!empty($_FILES["photo"]["error"][$key]))
 				{
-					$error[] = $_FILES["photo"]["error"][$key] ;
+					$message[$key][$x] = "ERROR: " . $_FILES["photo"]["error"][$key];
+					$x++;
 				}
 				if($_FILES["photo"]["size"][$key] > 2097152)
 				{
-					$error[] = "File is too large. Limit 2 MB";
+					$message[$key][$x] = "ERROR: The file <b>$name</b> is too large. Limit 2 MB";
+					$x++;
+
 				}
 
-				print_r($error);
-				if(empty($error))
+				if(empty($message[$key]))
 				{
 					$temp = $_FILES["photo"]["tmp_name"][$key];
 					$name = $_FILES["photo"]["name"][$key];
-					$fileLocation = $location . "/" . $name;
 					if (!file_exists($location)) 
 					{
 		    			mkdir($location, 0777, true);
-		    			echo "make the locatuin?";
-					}
-					else
-					{
-						if(file_exists($fileLocation))
-						{
-							$error[] = "The file $name already exists. Please rename the file.";
-						}
-					}
-
-					if(empty($error))
-					{
-						move_uploaded_file($temp, $location."/".$name);
 
 					}
-					
+					$fileLocation = $location . "/" . $name;
+					if(file_exists($fileLocation))
+					{
+						$message[$key][$x] = "ERROR: The file <b>$name</b> already exists. Please rename the file.";
+						$x++;
+						$message[$key][$x] = "ERROR: 22The file <b>$name</b> already exists. Please rename the file.22";
+
+					}
+
+					if(empty($message[$key][$x]))
+					{
+						move_uploaded_file($temp, $fileLocation);
+						$message[$key][$x] = "SUCCESS: The file <b>$name</b> was successfully uploaded";
+
+					}
+
 				}
+
 				
 			}
-		
+			echo json_encode(array('results' => $message));
+
 
 	}
 
