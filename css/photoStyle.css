@@ -298,6 +298,11 @@ select
 	color: red;
 }
 
+#success
+{
+	color: blue;
+}
+
 #list
 {
 	width: 600px;
