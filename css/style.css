@@ -261,6 +261,7 @@ a {
 	list-style: none;
 	line-height: normal;
 	text-align: center;
+	
 }
 
 #albums li {
@@ -270,7 +271,9 @@ a {
 	color: #FF9900;
 	padding: 7px;
 	border-radius: 5px;
-	border-style: none;
+	   -moz-user-select: none;
+   -khtml-user-select: none;
+   -webkit-user-select: none;
 
 
 }

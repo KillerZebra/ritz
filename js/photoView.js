@@ -1,6 +1,6 @@
 $(document).ready(function() 
 {
-   $("#albumAll").focus();
+   $("#all").focus();
       $.ajax(
       {
          type: "GET",
@@ -18,7 +18,28 @@ $(document).ready(function()
 
       });
 
+      getPhotos("all");
 
+      $(".photoFilter").click(function()
+      {
+         getPhotos($(this).attr('id'));
+      });
 
+      
 
 });
+
+function getPhotos(group)
+{
+   $.ajax(
+   {
+      type: "POST",
+      url: "php/photos.php",
+      data: {action:"showPhotos" , groupName:group},
+      dataType: "JSON",
+      success: function(data)
+      {
+         console.log(data);
+      }
+   });
+}

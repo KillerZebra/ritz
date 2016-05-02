@@ -14,6 +14,9 @@
 			case 'uploadFile':
 				uploadFile();
 				break;
+			case 'showPhotos':
+				showPhotos();
+				break;
 		}
 	}
 
@@ -88,6 +91,30 @@
 		echo json_encode(array('results' => $message));
 
 
+	}
+
+	function showPhotos()
+	{
+				include "../../database/connectToDB.php";
+
+		$group = $_POST['groupName'];
+
+		if($group == "all")
+		{
+			$query = "SELECT * FROM `photos`";
+
+		}
+		else
+		{
+			$query = "SELECT * FROM `photos` WHERE `photoGroup` = '$group'";
+		}
+
+		$result = mysqli_query($connect , $query);
+
+		if(mysqli_num_rows($result) > 0)
+		{
+			echo "photo grabbin was successfull";
+		}
 	}
 
 ?>
