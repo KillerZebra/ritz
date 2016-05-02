@@ -1,8 +1,6 @@
 $(document).ready(function() 
 {
-
-   loadPage()
-
+   $("#albumAll").focus();
       $.ajax(
       {
          type: "GET",
@@ -13,16 +11,14 @@ $(document).ready(function()
          {
             
             $("#loginTrigger").html('Welcome ' + data.info['fName']);
-            memberAccess();
+            $("#navigation ul li:last").after("<li><a href='portal.html'>Portal</a></li>");
 
 
          },
 
       });
 
-      $("#pagination").on('click', 'li' , function()
-      {
-         var number = $(this).html();
-         loadPage(number);
-      });
+
+
+
 });
