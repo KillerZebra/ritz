@@ -11,51 +11,21 @@
 		$action = $_POST['action'];
 		switch ($action)
 		{
-			case 'checkExist':
-				checkForDupes();
-				break;
 			case 'uploadFile':
 				uploadFile();
 				break;
 		}
 	}
-	
-	
 
-	function checkForDupes()
-	{
-		include "../../database/connectToDB.php";
-
-		$group = $_POST['groupName'];
-		$album = $_POST['albumName'];
-		$exists = array();
-
-		$query = "SELECT * FROM `photos` WHERE `album`='$album' AND `photoGroup`='$group'";
-
-		$results = mysqli_query($connect, $query);
-
-		//checks to see if group exists in a album, if it does it comes back as true.
-		if(mysqli_num_rows($results) > 0)
-		{
-			$exists[] = "true";
-			echo json_encode($exists);
-		}
-		else
-		{
-			$exists[] = "false";
-			echo json_encode($exists);		
-		}
-
-
-		mysqli_close($connect);
-	}
 
 	function uploadFile()
 	{
 		include "../../database/connectToDB.php";
 		$group = $_POST['groupName'];
 		$album = $_POST['albumName'];
-		$location = $_SERVER['DOCUMENT_ROOT'] . "/ritz/images/uploads/" . $group . "/" . $album;
+		$today = date('y-m-j');
+		$preLoc = "/ritz/images/uploads/" . $group . "/" . $album;
+		$location = $_SERVER['DOCUMENT_ROOT'] . $preLoc;
 		$message = array();
 
 			foreach ($_FILES["photo"]["tmp_name"] as $key => $value)
@@ -83,27 +53,39 @@
 		    			mkdir($location, 0777, true);
 
 					}
+					$preFile = $preLoc . "/" . $name;
 					$fileLocation = $location . "/" . $name;
 					if(file_exists($fileLocation))
 					{
 						$message[$key][$x] = "ERROR: The file <b>$name</b> already exists. Please rename the file.";
 						$x++;
-						$message[$key][$x] = "ERROR: 22The file <b>$name</b> already exists. Please rename the file.22";
 
 					}
 
-					if(empty($message[$key][$x]))
+					if(empty($message[$key]))
 					{
-						move_uploaded_file($temp, $fileLocation);
-						$message[$key][$x] = "SUCCESS: The file <b>$name</b> was successfully uploaded";
+						$query = "INSERT INTO `photos`
+								(`photoURL` , `album` , `photogroup` , `date`)
+								VALUES 
+								('$preFile' , '$album' , '$group' , '$today')";
+						$result = mysqli_query($connect, $query);
+						if($result)
+						{
+							move_uploaded_file($temp, $fileLocation);
+							$message[$key][$x] = "SUCCESS: The file <b>$name</b> was successfully uploaded";
+						}
+						else
+						{
+							$message[$key][$x] = "ERROR: Could not upload $name to database";
+
+						}
 
 					}
 
 				}
-
-				
 			}
-			echo json_encode(array('results' => $message));
+				
+		echo json_encode(array('results' => $message));
 
 
 	}

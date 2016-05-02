@@ -18,10 +18,12 @@ $(document).ready(function()
 
 	$("#photoSubmit").click(function()
 	{
+		$("#error").html("");
+		$("#success").html("");
 		var group = $("#group").val();
 		var album = $("#album").val();
 		var files = $('#photos').prop("files");
-		var names = $.map(files, function(val) { return val.name; });
+		//var names = $.map(files, function(val) { return val.name; });
 
 		var fData = new FormData();
 
@@ -39,32 +41,15 @@ $(document).ready(function()
 
 		if(group != null && album != "" && files.length > 0)
 		{
-			$.ajax(
-			{
-				type: "POST",
-				url: "../php/photos.php",
-				data: {action:"checkExist" , groupName:group , albumName:album},
-				dataType: "JSON",
-				success: function(data)
-				{
-					if (data[0] == "true")
-					{
-						console.log("Folder Name already exists");
-					}
-					else if (data[0] == "false")
-					{
-						uploadPhotos(group,album,fData,names);
-					}
 
-				}
-
-			});
-			
+			uploadPhotos(group,album,fData);
 
 		}
 		else
 		{
-			console.log("error");
+			$("#error").append("-----------------------");
+			$("#error").append("ERROR: Please fill out all fields. ");
+
 		}
 	});
 
@@ -77,7 +62,7 @@ function loadPage()
 
 }
 
-function uploadPhotos(group, album, fData, names)
+function uploadPhotos(group, album, fData)
 {
 
 	$.ajax(
@@ -99,6 +84,7 @@ function uploadPhotos(group, album, fData, names)
 
 function printResults(data)
 {
+	$('#photoForm').trigger("reset");
 	for (var x = 0; x < data.results.length; x++) 
 	{
 		for (var y = 0; y < data.results[x].length; y++)
@@ -116,6 +102,5 @@ function printResults(data)
 			
 		}
 		$("#success").append("<br />");
-
 	}
 }
