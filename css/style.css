@@ -269,13 +269,20 @@ a {
 	font-size: 30px;
 	color: #FF9900;
 	padding: 7px;
-	border-radius: 5px
+	border-radius: 5px;
+	border-style: none;
+
 
 }
 
-li:focus
+#albums li:focus
 {
 	background-color: white;
+}
+
+#albums li:hover
+{
+	cursor: pointer;
 }
 
 .post {
