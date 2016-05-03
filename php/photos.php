@@ -25,10 +25,11 @@
 	{
 		include "../../database/connectToDB.php";
 		$group = $_POST['groupName'];
+		$strGroup = str_replace($group, "_" , " ");
 		$album = $_POST['albumName'];
 		$strAlbum = str_replace($album, "_" , " ");
 		$today = date('y-m-j');
-		$preLoc = "/ritz/images/uploads/" . $group . "/" . $strAlbum;
+		$preLoc = "/ritz/images/uploads/" . $strGroup . "/" . $strAlbum;
 		$location = $_SERVER['DOCUMENT_ROOT'] . $preLoc;
 		$message = array();
 

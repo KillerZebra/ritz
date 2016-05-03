@@ -47,7 +47,7 @@ function getPhotos(group)
 
 function loadPhotos(urls)
 {
-   var title ="";
+   var title = "";
    for(var key in urls) 
    {
       for(var val in urls[key])
