@@ -95,14 +95,16 @@
 
 	function showPhotos()
 	{
-				include "../../database/connectToDB.php";
+		include "../../database/connectToDB.php";
 
 		$group = $_POST['groupName'];
+		$getGroups = array();
+		$arr = array();
+		$firstLoop = TRUE;
 
 		if($group == "all")
 		{
 			$query = "SELECT * FROM `photos`";
-
 		}
 		else
 		{
@@ -111,10 +113,28 @@
 
 		$result = mysqli_query($connect , $query);
 
+
 		if(mysqli_num_rows($result) > 0)
 		{
-			echo "photo grabbin was successfull";
+			$x = 0;
+			while ($row = mysqli_fetch_assoc($result)) 
+			{
+			     $rows[] = $row;
+			}
+
+			foreach($rows as $row)
+			{
+				  $album = $row['album'];
+				  $url = $row['photoURL'];
+
+				  $arr[$album][$x] = $url;
+				  $x++;
+				
+			}
+
 		}
+
+		echo json_encode($arr);
 	}
 
 ?>
