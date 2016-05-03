@@ -1,3 +1,4 @@
+var links = [];
 $(document).ready(function() 
 {
    $("#all").focus();
@@ -39,7 +40,24 @@ function getPhotos(group)
       dataType: "JSON",
       success: function(data)
       {
-         console.log(data);
+         loadPhotos(data);
       }
    });
+}
+
+function loadPhotos(urls)
+{
+   var title ="";
+   for(var key in urls) 
+   {
+      for(var val in urls[key])
+      {
+         links.push(urls[key][val]);
+      }
+      console.log(links[1]);
+
+      $("#allPhotos").append("<div class='groups'><img src=../.."+links[0]+"><div class='groupTitle'>"+key+"</div></div>");
+      
+   }
+   
 }

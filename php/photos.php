@@ -26,8 +26,9 @@
 		include "../../database/connectToDB.php";
 		$group = $_POST['groupName'];
 		$album = $_POST['albumName'];
+		$strAlbum = str_replace($album, "_" , " ");
 		$today = date('y-m-j');
-		$preLoc = "/ritz/images/uploads/" . $group . "/" . $album;
+		$preLoc = "/ritz/images/uploads/" . $group . "/" . $strAlbum;
 		$location = $_SERVER['DOCUMENT_ROOT'] . $preLoc;
 		$message = array();
 
@@ -104,11 +105,11 @@
 
 		if($group == "all")
 		{
-			$query = "SELECT * FROM `photos`";
+			$query = "SELECT * FROM `photos` ORDER BY `date` ASC";
 		}
 		else
 		{
-			$query = "SELECT * FROM `photos` WHERE `photoGroup` = '$group'";
+			$query = "SELECT * FROM `photos` WHERE `photoGroup` = '$group' ORDER BY `date` ASC";
 		}
 
 		$result = mysqli_query($connect , $query);
