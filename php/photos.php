@@ -17,6 +17,9 @@
 			case 'showPhotos':
 				showPhotos();
 				break;
+			case 'coverPhotos':
+				coverPhoto();
+				break;
 		}
 	}
 
@@ -138,5 +141,33 @@
 
 		echo json_encode($arr);
 	}
+
+	function coverPhoto()
+	{
+		include "../../database/connectToDB.php";
+		$query = "SELECT *, COUNT(*) FROM `photos` GROUP BY `album` ORDER BY `date`";
+
+        $result = mysqli_query($connect, $query);
+
+        if(mysqli_num_rows($result) > 0)
+        {
+        	$x = 0;
+        	while($row = mysqli_fetch_assoc($result))
+        	{
+        		$rows[] = $row;
+        	}
+        	foreach($rows as $row)
+			{
+				  $album = $row['album'];
+				  $url = $row['photoURL'];
+
+				  $arr[$album][$x] = $url;
+				  $x++;
+				
+			}
+        }
+        echo json_encode($arr);
+	}
+
 
 ?>

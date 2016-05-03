@@ -36,7 +36,7 @@ function getPhotos(group)
    {
       type: "POST",
       url: "php/photos.php",
-      data: {action:"showPhotos" , groupName:group},
+      data: {action:"coverPhotos" , groupName:group},
       dataType: "JSON",
       success: function(data)
       {
@@ -47,6 +47,18 @@ function getPhotos(group)
 
 function loadPhotos(urls)
 {
+   //console.log(urls);
+   var keys = Object.keys(urls);
+   for (var x = 0; x < Object.keys(urls).length; x++)
+   {
+      $("#allPhotos").append("<div class='groups'><img src=../.."+urls[keys[x]][x]+"><div class='groupTitle'>"+keys[x]+"</div></div>");
+
+   }
+
+
+
+
+   /*
    var title = "";
    for(var key in urls) 
    {
@@ -59,5 +71,5 @@ function loadPhotos(urls)
       $("#allPhotos").append("<div class='groups'><img src=../.."+links[0]+"><div class='groupTitle'>"+key+"</div></div>");
       
    }
-   
+   */
 }

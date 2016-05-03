@@ -371,14 +371,14 @@ select
 }
 #allPhotos img
 {
-	height: 200px;
-	width: 200px;
+	height: 250px;
+	width: 225px;
 }
 
 .groups
 {
-	height: 200px;
-	width: 200px;
+	height: 250px;
+	width: 225px;
 	background-color: white;
 	display: inline-block; 
 	margin: 15px 25px 10px 10px;
