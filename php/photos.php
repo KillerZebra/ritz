@@ -147,7 +147,7 @@
 		}
 		else
 		{
-			$query = "SELECT *, COUNT(*) FROM `photos` WHERE `album`='$group' GROUP BY `album` ORDER BY `date`";
+			$query = "SELECT *, COUNT(*) FROM `photos` WHERE `photogroup`='$group' GROUP BY `album` ORDER BY `date`";
 		}
 
         $result = mysqli_query($connect, $query);
@@ -168,8 +168,9 @@
 				  $x++;
 				
 			}
+			echo json_encode($arr);
+
         }
-        echo json_encode($arr);
 	}
 
 
