@@ -14,7 +14,7 @@
 			case 'uploadFile':
 				uploadFile();
 				break;
-			case 'showPhotos':
+			case 'photoPopup':
 				showPhotos();
 				break;
 			case 'coverPhotos':
@@ -102,20 +102,13 @@
 	{
 		include "../../database/connectToDB.php";
 
-		$group = $_POST['groupName'];
+		$albumName = $_POST['albumName'];
 		$getGroups = array();
 		$arr = array();
 		$firstLoop = TRUE;
 
-		if($group == "all")
-		{
-			$query = "SELECT * FROM `photos` ORDER BY `date` ASC";
-		}
-		else
-		{
-			$query = "SELECT * FROM `photos` WHERE `photoGroup` = '$group' ORDER BY `date` ASC";
-		}
 
+		$query = "SELECT * FROM `photos` WHERE `album`='$albumName' ORDER BY `date` ASC";
 		$result = mysqli_query($connect , $query);
 
 
@@ -146,7 +139,6 @@
 	{
 		include "../../database/connectToDB.php";
 		$group = $_POST['groupName'];
-				$arr = array();
 
 
 		if($group == "all")
@@ -155,7 +147,7 @@
 		}
 		else
 		{
-			$query = "SELECT *, COUNT(*) FROM `photos` WHERE `photoGroup`='$group' GROUP BY `album` ORDER BY `date`";
+			$query = "SELECT *, COUNT(*) FROM `photos` WHERE `album`='$group' GROUP BY `album` ORDER BY `date`";
 		}
 
         $result = mysqli_query($connect, $query);

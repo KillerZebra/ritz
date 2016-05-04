@@ -1,4 +1,4 @@
-var links = [];
+var links = [[]];
 $(document).ready(function() 
 {
    $("#all").focus();
@@ -19,16 +19,21 @@ $(document).ready(function()
 
       });
 
-      getPhotos("all");
+      loadCoverPhoto("all");
 
       $(".photoFilter").click(function()
       {
-         getPhotos($(this).attr('id'));
+         loadCoverPhoto($(this).attr('id'));
       });
 
       $(document).on('click' , '.groups' ,function()
       {
          $("#albumViewer").css({'visibility':'visible'});
+         var title = $(this).children("div").html();
+         loadCoverPhoto(title);
+         loadSelectedPhoto(title);
+
+
       });
 
       $("#closeButton").click(function()
@@ -41,7 +46,7 @@ $(document).ready(function()
 
 });
 
-function getPhotos(group)
+function loadCoverPhoto(group)
 {
    $("#allPhotos").empty();
    $.ajax(
@@ -52,36 +57,44 @@ function getPhotos(group)
       dataType: "JSON",
       success: function(data)
       {
-         loadCoverPhoto(data);
+         var keys = Object.keys(data);
+         for (var x = 0; x < Object.keys(data).length; x++)
+         {
+            $("#allPhotos").append("<div class='groups'><img src=../.."+data[keys[x]][x]+"><div class='groupTitle'>"+keys[x]+"</div></div>");
+
+         }
       }
    });
 }
 
-function loadCoverPhoto(urls)
+function loadSelectedPhoto(name)
 {
-   //console.log(urls);
-   var keys = Object.keys(urls);
-   for (var x = 0; x < Object.keys(urls).length; x++)
+   $.ajax(
    {
-      $("#allPhotos").append("<div class='groups'><img src=../.."+urls[keys[x]][x]+"><div class='groupTitle'>"+keys[x]+"</div></div>");
-
-   }
-
-
-
-
-   /*
-   var title = "";
-   for(var key in urls) 
-   {
-      for(var val in urls[key])
+      type: "POST",
+      url: "php/photos.php",
+      data: {action:"photoPopup", albumName:name},
+      dataType: "JSON",
+      success: function(data)
       {
-         links.push(urls[key][val]);
+         accessData(data);
       }
-      console.log(links[1]);
+   });
+   function accessData(data)
+   {
+      var key = Object.keys(data);
+      for(var y = 0; y < data[key[0]].length; y++)
+      {
+         var i = new Image();
+         i.src = data[key[0]][y];
+         var height = i.height;
+         var width = i.width;
+         links.push([data[key[0]][y],height,width]);
+      }
 
-      $("#allPhotos").append("<div class='groups'><img src=../.."+links[0]+"><div class='groupTitle'>"+key+"</div></div>");
-      
+   console.log(links);
+
+   
    }
-   */
+   
 }
