@@ -145,7 +145,18 @@
 	function coverPhoto()
 	{
 		include "../../database/connectToDB.php";
-		$query = "SELECT *, COUNT(*) FROM `photos` GROUP BY `album` ORDER BY `date`";
+		$group = $_POST['groupName'];
+				$arr = array();
+
+
+		if($group == "all")
+		{
+			$query = "SELECT *, COUNT(*) FROM `photos` GROUP BY `album` ORDER BY `date`";
+		}
+		else
+		{
+			$query = "SELECT *, COUNT(*) FROM `photos` WHERE `photoGroup`='$group' GROUP BY `album` ORDER BY `date`";
+		}
 
         $result = mysqli_query($connect, $query);
 

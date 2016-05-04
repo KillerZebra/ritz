@@ -26,12 +26,24 @@ $(document).ready(function()
          getPhotos($(this).attr('id'));
       });
 
+      $(document).on('click' , '.groups' ,function()
+      {
+         $("#albumViewer").css({'visibility':'visible'});
+      });
+
+      $("#closeButton").click(function()
+      {
+         $("albumViewer").empty();
+         $("#albumViewer").css({'visibility':'hidden'});
+
+      });
       
 
 });
 
 function getPhotos(group)
 {
+   $("#allPhotos").empty();
    $.ajax(
    {
       type: "POST",
@@ -40,12 +52,12 @@ function getPhotos(group)
       dataType: "JSON",
       success: function(data)
       {
-         loadPhotos(data);
+         loadCoverPhoto(data);
       }
    });
 }
 
-function loadPhotos(urls)
+function loadCoverPhoto(urls)
 {
    //console.log(urls);
    var keys = Object.keys(urls);

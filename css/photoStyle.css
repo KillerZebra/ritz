@@ -391,8 +391,40 @@ select
 	color: #FF9900;
 }
 
+.groups img:hover
+{
+		cursor: pointer;
 
+}
 
+#albumViewer
+{
+    border-radius: 7px;
+    background:#6b6a63;
+    margin: 0 auto;
+    padding:6px;  
+    position:fixed;
+    width: 900px;
+    height: 600px ;
+	top: 50%;
+	left: 50%;
+	margin-top: -300px; 
+	margin-left: -450px;
+    z-index: 50;
+	visibility: hidden;
+}
+
+#closeButton
+{
+	height: 20px;
+	width: 20px;
+	float: right;
+}
+
+#closeButton:hover
+{
+	cursor: pointer;
+}
 
 /* Footer */
 
