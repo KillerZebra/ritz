@@ -1,4 +1,4 @@
-var links = [[]];
+var links = [];
 $(document).ready(function() 
 {
    $("#all").focus();
@@ -29,8 +29,7 @@ $(document).ready(function()
       $(document).on('click' , '.groups img' ,function()
       {
          $("#albumViewer").css({'visibility':'visible'});
-         var title = $(".groups").children("div").html();
-         console.log(title);
+         var title = $(this).next("div").html();
          loadSelectedPhoto(title);
 
 
@@ -82,7 +81,10 @@ function loadSelectedPhoto(name)
    });
    function accessData(data)
    {
+
       var key = Object.keys(data);
+
+      
       for(var y = 0; y < data[key[0]].length; y++)
       {
          var i = new Image();
@@ -91,6 +93,7 @@ function loadSelectedPhoto(name)
          var width = i.width;
          links.push([data[key[0]][y],height,width]);
       }
+      
 
    console.log(links);
 
