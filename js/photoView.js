@@ -26,11 +26,11 @@ $(document).ready(function()
          loadCoverPhoto($(this).attr('id'));
       });
 
-      $(document).on('click' , '.groups' ,function()
+      $(document).on('click' , '.groups img' ,function()
       {
          $("#albumViewer").css({'visibility':'visible'});
-         var title = $(this).children("div").html();
-         loadCoverPhoto(title);
+         var title = $(".groups").children("div").html();
+         console.log(title);
          loadSelectedPhoto(title);
 
 
