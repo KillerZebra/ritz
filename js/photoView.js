@@ -36,9 +36,15 @@ $(document).ready(function()
 
       $("#closeButton").click(function()
       {
-         //$("#mainImage").empty();
+         $("#thumbnails").empty();
          $("#albumViewer").css({'visibility':'hidden'});
 
+      });
+
+      $(document).on('click' , '.thumbnail' , function()
+      {
+         console.log($(this).attr('src'));
+         $("#mainImage").attr('src',$(this).attr('src'));
       });
       
 
@@ -91,28 +97,8 @@ function loadSelectedPhoto(name)
          i.src = data[key[0]][y];
          var height = i.height;
          var width = i.width;
-         var ratio = 0; 
-         if(height > 480)
-         {
-            while(height > 480)
-            {
-               ratio = 480 / height;
-               height = ratio * height;
-               width = ratio * width;
-            }
-         }
-
-         if(width > 890)
-         {
-            while(height > 890)
-            {
-               ratio = 890 / width;
-               height = ratio * height;
-               width = ratio * width;
-            }
-         }
-
-         links.push([data[key[0]][y],height,width]);
+         var ratio = ratioCheck(height,width);
+         links.push([data[key[0]][y],ratio[0],ratio[1]]);
       }
 
       $("#mainImage").attr('src', links[0][0]);
@@ -122,7 +108,6 @@ function loadSelectedPhoto(name)
       for(var x = 0; x < length; x++)
       {
          $("#thumbnails").append("<img src=" +links[x][0]+" class='thumbnail' />");
-
       }
       
 
@@ -130,4 +115,32 @@ function loadSelectedPhoto(name)
    }
 
    
+}
+
+function ratioCheck(height, width)
+{
+   var dimmensions = []
+   if(height > 480)
+   {
+      while(height > 480)
+      {
+         ratio = 480 / height;
+         height = ratio * height;
+         width = ratio * width;
+      }
+   }
+
+   if(width > 890)
+   {
+      while(height > 890)
+      {
+         ratio = 890 / width;
+         height = ratio * height;
+         width = ratio * width;
+      }
+   }
+
+   dimmensions[0] = height;
+   dimmensions[1] = width;
+   return dimmensions;
 }
