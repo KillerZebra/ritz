@@ -93,11 +93,8 @@ function loadSelectedPhoto(name)
       
       for(var y = 0; y < length; y++)
       {
-         var i = new Image();
-         i.src = data[key[0]][y];
-         var height = i.height;
-         var width = i.width;
-         var ratio = ratioCheck(height,width);
+
+         var ratio = ratioCheck(data[key[0]][y]);
          links.push([data[key[0]][y],ratio[0],ratio[1]]);
       }
 
@@ -117,8 +114,12 @@ function loadSelectedPhoto(name)
    
 }
 
-function ratioCheck(height, width)
+function ratioCheck(data)
 {
+   var i = new Image();
+   i.src = data;
+   var height = i.height;
+   var width = i.width;
    var dimmensions = []
    if(height > 480)
    {
