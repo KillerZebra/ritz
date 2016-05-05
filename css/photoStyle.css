@@ -400,7 +400,7 @@ select
 #albumViewer
 {
     border-radius: 7px;
-    background:#6b6a63;
+    background: white;
     margin: 0 auto;
     padding:6px;  
     position:fixed;
@@ -412,13 +412,58 @@ select
 	margin-left: -450px;
     z-index: 50;
 	visibility: hidden;
+	text-align: center;
 }
+
+#mainImage
+{
+	height: 480px;
+	width: 890px;
+	display: block;
+	margin: 0 auto;
+}
+
+.thumbnail
+{
+	height: 100px;
+	width: 120px;
+	display: block-inline;
+	margin-top: 10px;
+	margin-right: 5px;
+   	border:1px solid #021a40;
+
+}
+
+
+
+#leftArrow, #rightArrow
+{
+	height: 100px;
+	width: 40px;
+	position: absolute;
+}
+
+#leftArrow
+{
+	left: -25;
+	margin-top: 10px;
+}
+
+#rightArrow
+{
+	right:-25;
+	margin-top: 10px;
+
+}
+
 
 #closeButton
 {
 	height: 20px;
 	width: 20px;
-	float: right;
+	position: absolute;
+	right: -5;
+	top: -5;
 }
 
 #closeButton:hover

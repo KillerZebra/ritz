@@ -1,4 +1,3 @@
-var links = [];
 $(document).ready(function() 
 {
    $("#all").focus();
@@ -37,7 +36,7 @@ $(document).ready(function()
 
       $("#closeButton").click(function()
       {
-         $("albumViewer").empty();
+         //$("#mainImage").empty();
          $("#albumViewer").css({'visibility':'hidden'});
 
       });
@@ -68,6 +67,7 @@ function loadCoverPhoto(group)
 
 function loadSelectedPhoto(name)
 {
+   var links = [];
    $.ajax(
    {
       type: "POST",
@@ -83,21 +83,51 @@ function loadSelectedPhoto(name)
    {
 
       var key = Object.keys(data);
-
+      length = data[key[0]].length;
       
-      for(var y = 0; y < data[key[0]].length; y++)
+      for(var y = 0; y < length; y++)
       {
          var i = new Image();
          i.src = data[key[0]][y];
          var height = i.height;
          var width = i.width;
+         var ratio = 0; 
+         if(height > 480)
+         {
+            while(height > 480)
+            {
+               ratio = 480 / height;
+               height = ratio * height;
+               width = ratio * width;
+            }
+         }
+
+         if(width > 890)
+         {
+            while(height > 890)
+            {
+               ratio = 890 / width;
+               height = ratio * height;
+               width = ratio * width;
+            }
+         }
+
          links.push([data[key[0]][y],height,width]);
+      }
+
+      $("#mainImage").attr('src', links[0][0]);
+      //$("#mainViewer").append("<img src=" +links[0][0]+ " id='mainImage' />");
+      $("#mainImage").css({height:links[0][1], width:links[0][2]});
+
+      for(var x = 0; x < length; x++)
+      {
+         $("#thumbnails").append("<img src=" +links[x][0]+" class='thumbnail' />");
+
       }
       
 
-   console.log(links);
-
    
    }
+
    
 }
