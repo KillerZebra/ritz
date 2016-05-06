@@ -29,6 +29,7 @@ $(document).ready(function()
       {
          $("#albumViewer").css({'visibility':'visible'});
          var title = $(this).next("div").html();
+         $("#mainImage").attr('class', title)
          loadSelectedPhoto(title);
 
 
@@ -43,10 +44,49 @@ $(document).ready(function()
 
       $(document).on('click' , '.thumbnail' , function()
       {
-         console.log($(this).attr('src'));
+         var urlpath = ratioCheck(($(this).attr('src')));
          $("#mainImage").attr('src',$(this).attr('src'));
+         $("#mainImage").css({height:urlpath[0], width:urlpath[1]});
       });
-      
+
+      //closes album popup when you click outside of it
+      $(document).mouseup(function(e)
+      {
+         var container = $("#page");
+         if (container.has(e.target).length === 0)
+         {
+            $("#thumbnails").empty();
+            $("#albumViewer").css({'visibility':'hidden'});
+         }
+
+      });
+
+      $(document).on('click' , '.arrows' , function()
+      {
+         var page = parseInt($("#albumViewer").attr('class'));
+         $(this).data('clicked', true);
+         $("#thumbnails").empty();
+
+
+         if($("#leftArrow").data('clicked'))
+         {
+            page = page - 1; 
+
+         }
+         else if($("#rightArrow").data('clicked'))
+         {
+            page = page + 1;  
+         }
+         $(this).data('clicked', false);       
+
+         $("#albumViewer").attr('class',page);
+         title =  $("#mainImage").attr('class');
+         loadSelectedPhoto(title);
+
+
+      });
+
+            
 
 });
 
@@ -74,11 +114,12 @@ function loadCoverPhoto(group)
 function loadSelectedPhoto(name)
 {
    var links = [];
+   var page = parseInt($("#albumViewer").attr('class'));
    $.ajax(
    {
       type: "POST",
       url: "php/photos.php",
-      data: {action:"photoPopup", albumName:name},
+      data: {action:"photoPopup", albumName:name, page:page},
       dataType: "JSON",
       success: function(data)
       {

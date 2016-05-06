@@ -2,8 +2,7 @@
 
 	ini_set('display_errors', 1);
 	ini_set('display_startup_errors', 1);
-	error_reporting(E_ALL);
-	
+	error_reporting(E_ALL);	
 	
 
 	if(isset($_POST['action']))
@@ -103,12 +102,14 @@
 		include "../../database/connectToDB.php";
 
 		$albumName = $_POST['albumName'];
-		$getGroups = array();
 		$arr = array();
-		$firstLoop = TRUE;
+		$page = $_POST['page'];
+		$offset = ($page * 6) - 6;
 
 
-		$query = "SELECT * FROM `photos` WHERE `album`='$albumName' ORDER BY `date` ASC";
+
+
+		$query = "SELECT * FROM `photos` WHERE `album`='$albumName' ORDER BY `date` ASC LIMIT 6 OFFSET $offset ";
 		$result = mysqli_query($connect , $query);
 
 
@@ -129,10 +130,13 @@
 				  $x++;
 				
 			}
-
+			echo json_encode($arr);
+		}
+		else
+		{
+			echo "error";
 		}
 
-		echo json_encode($arr);
 	}
 
 	function coverPhoto()

@@ -400,7 +400,7 @@ select
 #albumViewer
 {
     border-radius: 7px;
-    background: white;
+    background: #F8F8F8;
     margin: 0 auto;
     padding:6px;  
     position:fixed;
@@ -421,6 +421,8 @@ select
 	width: 890px;
 	display: block;
 	margin: 0 auto;
+	   	border:1px solid #021a40;
+
 }
 
 .thumbnail
@@ -436,11 +438,16 @@ select
 
 
 
-#leftArrow, #rightArrow
+.arrows
 {
 	height: 100px;
 	width: 40px;
 	position: absolute;
+}
+
+.arrows:hover
+{
+	cursor: pointer;
 }
 
 #leftArrow
