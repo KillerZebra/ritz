@@ -454,6 +454,7 @@ select
 {
 	left: -25;
 	margin-top: 10px;
+	visibility: hidden;
 }
 
 #rightArrow

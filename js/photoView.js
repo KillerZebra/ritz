@@ -38,16 +38,13 @@ $(document).ready(function()
       $("#closeButton").click(function()
       {
          $("#thumbnails").empty();
+         $("mainImage").empty();
          $("#albumViewer").css({'visibility':'hidden'});
+         $(".arrows").css({'visibility':'hidden'});
+         $("#albumViewer").attr('class',1);
 
       });
 
-      $(document).on('click' , '.thumbnail' , function()
-      {
-         var urlpath = ratioCheck(($(this).attr('src')));
-         $("#mainImage").attr('src',$(this).attr('src'));
-         $("#mainImage").css({height:urlpath[0], width:urlpath[1]});
-      });
 
       //closes album popup when you click outside of it
       $(document).mouseup(function(e)
@@ -57,10 +54,22 @@ $(document).ready(function()
          {
             $("#thumbnails").empty();
             $("#albumViewer").css({'visibility':'hidden'});
+            $("#leftArrow").css({'visibility':'hidden'});
+            $(".arrows").css({'visibility':'hidden'});
+            $("#albumViewer").attr('class',1);
+
          }
 
       });
 
+     $(document).on('click' , '.thumbnail' , function()
+      {
+         var urlpath = ratioCheck(($(this).attr('src')));
+         $("#mainImage").attr('src',$(this).attr('src'));
+         $("#mainImage").css({height:urlpath[0], width:urlpath[1]});
+
+      });
+     
       $(document).on('click' , '.arrows' , function()
       {
          var page = parseInt($("#albumViewer").attr('class'));
@@ -70,12 +79,21 @@ $(document).ready(function()
 
          if($("#leftArrow").data('clicked'))
          {
-            page = page - 1; 
+            page = page - 1;
+            if(page == 1)
+            {
+               $("#leftArrow").css({'visibility':'hidden'});
+            }
+         console.log(page);
+
 
          }
          else if($("#rightArrow").data('clicked'))
          {
-            page = page + 1;  
+            page = page + 1;
+            $("#leftArrow").css({'visibility':'visible'});
+           console.log(page);
+
          }
          $(this).data('clicked', false);       
 
@@ -131,6 +149,15 @@ function loadSelectedPhoto(name)
 
       var key = Object.keys(data);
       length = data[key[0]].length;
+      if(length < 6)
+      {
+         $("#rightArrow").css({'visibility':'hidden'});
+      }
+      else
+      {
+         $("#rightArrow").css({'visibility':'visible'});
+
+      }
       
       for(var y = 0; y < length; y++)
       {
