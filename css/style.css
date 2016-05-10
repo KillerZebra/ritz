@@ -245,6 +245,7 @@ a {
 /* Content */
 
 #content {
+		float: right;
 	width: 620px;
 	padding: 30px 0px 0px 0px;
 }
@@ -372,6 +373,7 @@ a {
 
 #videos {
 	width: 960px;
+	height: 1250px;
 	margin: 0 auto;
 	padding: 0;
 	margin-top: 15px;
@@ -387,15 +389,20 @@ a {
 
 #mainTitle h3
 {
-		color: #D80000;
+	color: #D80000;
+
+}
+
+.thumbnails h3
+{
+	color: #D80000;
 
 }
 
 .mainVideo
 {
-	height: 350px;
-	width: 600px;
-	background-color: white;
+	height: 400px;
+	width: 650px;
 	margin: 10px auto;	
 }
 
@@ -410,12 +417,17 @@ a {
 {
 	height: 200px;
 	width: 280px;
-	background-color: white;
 	display: inline-block;
 	position: relative;
 	margin-top: 40px;
 	margin-left: 20px;
 	text-align: center;
+}
+
+#coverPic img
+{
+	height: 190px;
+	width: 280px;
 }
 
 #thumbTitle
@@ -425,6 +437,41 @@ a {
 		left: 50%;
 		-webkit-transform: translateX(-50%);
 		transform: translateX(-50%)
+
+}
+
+#videoPagination
+{
+	text-align: center;
+}
+
+#videoPagination ul
+{
+
+	list-style: none;
+	line-height: normal;
+	margin-right: 15px;
+
+
+}
+
+#videoPagination li 
+{
+    display: inline-block;
+    text-align: center;
+    margin-right: 5px;
+    border-style: solid;
+    border-width: 2px;
+    width: 25px;
+    background-color: #1F1F1F;
+    font-size: 20px;
+	color: #FFFFFF;
+
+}
+
+#pagination li:hover
+{
+	cursor: pointer;
 
 }
 
