@@ -411,10 +411,12 @@ a {
 	height: 600px;
 	width: 940px;
 	margin-top: 20px;
+	border-radius: 5px;
 }
 
 .thumbnails
 {
+	border:2px solid silver;
 	height: 200px;
 	width: 280px;
 	display: inline-block;
@@ -422,6 +424,11 @@ a {
 	margin-top: 40px;
 	margin-left: 20px;
 	text-align: center;
+}
+
+.thumbnails :hover
+{
+	cursor: pointer;
 }
 
 #coverPic img
@@ -469,7 +476,7 @@ a {
 
 }
 
-#pagination li:hover
+#videoPagination li:hover
 {
 	cursor: pointer;
 
