@@ -13,6 +13,8 @@ $(document).ready(function()
          {
             
             $("#loginTrigger").html('Welcome ' + data.info['fName']);
+            $("#register a").html("Logout");
+            $("#register a").attr("href", "php/logout.php");
             memberAccess();
 
 

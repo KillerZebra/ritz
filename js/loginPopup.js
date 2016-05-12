@@ -6,19 +6,14 @@ $("#loginTrigger").click(function()
 
 	$("#closeLogin").click(function()
 	{
-		$("#LoginFormPopup").fadeIn();
    		$("#LoginFormPopup").css({"visibility":"visible","display":"block"});
 	});
 
 
-	$("#loginForm").submit(function(event)
+	$("#submit").click(function(event)
 	{
-		event.preventDefault();
 			var username = $("#login").val();
-
-
-
-				var pass = $("#password").val();
+			var pass = $("#password").val();
 
 				
 		$.ajax(
@@ -31,7 +26,6 @@ $("#loginTrigger").click(function()
 			success: function(data)
 			{
 				setTimeout(' window.location.href = "portal.html"; ', 1000);
-				$("#loginTrigger").html(data.info['username']);
 
 
 			}
@@ -39,9 +33,6 @@ $("#loginTrigger").click(function()
 		});
 
 		
-
-
-
 	});
 
 

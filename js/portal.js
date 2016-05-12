@@ -13,9 +13,9 @@ $(document).ready(function()
          success: function(data)
          {
            
-            $("#loginTrigger").html(data.info['username']);
-   			$("#reglog").attr('href', 'php/logout.php');
-           	$("#reglog").html('Logout');
+            $("#loginTrigger").html('Welcome ' + data.info['fName']);
+            $("#register a").html("Logout");
+            $("#register a").attr("href", "php/logout.php");
             level = data.info['level'];
             doStuff(level);
 

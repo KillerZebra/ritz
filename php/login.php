@@ -1,9 +1,7 @@
 <?php
-
-	include "../../database/connectToDB.php";
-	session_set_cookie_params(6000);
-
 	session_start();
+	session_set_cookie_params(6000);
+		include "../../database/connectToDB.php";
 	
 
 	if(isset($_POST["username"]) && isset($_POST["pass"]))
@@ -12,9 +10,6 @@
 		$pass = $_POST["pass"];
 		$hash = md5($salt.$pass);
 
-
-
-		
 		$query = "SELECT * FROM `accounts` WHERE `username` = '$uName' AND `password` = '$hash'";
 
 		$result = mysqli_query($connect , $query);
@@ -29,7 +24,6 @@
 		}
 		else
 		{
-			session_regenerate_id();
 
 			$row = mysqli_fetch_array($result);
 
