@@ -5,7 +5,7 @@
 
 	switch ($action)
 	{
-		case 'getAPIKey':
+		case 'getKey':
 			returnKey();
 			break;
 
@@ -15,7 +15,7 @@
 	function returnKey()
 	{
 		include "../../database/connectToDB.php";
-		echo json_encode($YTapiKey);
+		echo json_encode($YTApiKey);
 	}
 
 ?>

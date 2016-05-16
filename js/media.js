@@ -3,26 +3,27 @@
    var prevToken = "";
    var uploadID;
       var timeo;
+   var apiKey;
 
 
 $(document).ready(function() 
 {
-   $.get(
-      "https://www.googleapis.com/youtube/v3/channels",
-      {
-         part: "contentDetails",
-         forUsername: "KillerZebra69",
-         key: "AIzaSyBh5KoRxCU5x75HdCKqdFDmQJLp-2svcEs"
-      },
-      function(data){
-         $.each(data.items, function(i,item)
-         {
-            uploadID = item.contentDetails.relatedPlaylists.uploads;
-            getVideos(uploadID);
-         });
-      }
+   $("#searchField").css("border", "none");
+   $("#searchField").val("");
 
-   )
+
+   $.ajax(
+   {
+      type: "POST",
+      url: "php/media.php",
+      data: {"action":"getKey"},
+      dataType: "JSON",
+      success: function(data)
+      {
+         apiKey = data;
+         getChannel();
+      }
+   });
 
    $("#videoPagination").on('click', 'ul li', function()
    {
@@ -38,6 +39,8 @@ $(document).ready(function()
       else if(id == "scrollLeft")
       {
          $("#videoPagination ul").empty();
+         $(".mainVideo").empty();
+         $("#thumbnail").empty();
          token = prevToken;
          getVideos(uploadID);
       }
@@ -59,11 +62,42 @@ $(document).ready(function()
 
    $('#searchField').on('input', function()
    {
-       clearTimeout(timeo);
-       timeo = setTimeout(init, 400);
+      if($(this).val() == "")
+      {
+         getVideos(uploadID);
+         $("#searchField").css("border", "none")
+
+      }
+      else if($(this).val().length > 3)
+      {
+         clearTimeout(timeo);
+         timeo = setTimeout(init, 600);
+      }
+
    });
    
 });
+
+function getChannel()
+{
+
+   $.get(
+      "https://www.googleapis.com/youtube/v3/channels",
+      {
+         part: "contentDetails",
+         forUsername: "KillerZebra69",
+         key: apiKey
+      },
+      function(data){
+         $.each(data.items, function(i,item)
+         {
+            uploadID = item.contentDetails.relatedPlaylists.uploads;
+            getVideos(uploadID);
+         });
+      }
+
+   )
+}
 
 function getVideos(uploadID)
 {
@@ -75,7 +109,7 @@ function getVideos(uploadID)
          order: 'date',
          pageToken: token,
          playlistId: uploadID,
-         key: "AIzaSyBh5KoRxCU5x75HdCKqdFDmQJLp-2svcEs"
+         key: apiKey
       },
       function(data){
          //console.log(data);
@@ -93,6 +127,7 @@ function getVideos(uploadID)
             //console.log(item);
             var title = item.snippet.title;
             var videoId = item.snippet.resourceId.videoId;
+            var picUrl = item.snippet.thumbnails.high.url;
 
             if(i == 0)
             {
@@ -102,7 +137,6 @@ function getVideos(uploadID)
 
             }
 
-               var picUrl = item.snippet.thumbnails.high.url;
                $("#thumbnail").append("<div id=" + videoId + " class='thumbnails'><div id='thumbTitle'><h3>" + title + "</h3></div><div id='coverPic'><img src='" + picUrl + "'></div></div>")
             
 
@@ -134,7 +168,7 @@ function pagination ()
 
 function init()
 {
-    gapi.client.setApiKey('AIzaSyBh5KoRxCU5x75HdCKqdFDmQJLp-2svcEs');
+    gapi.client.setApiKey(apiKey);
     gapi.client.load('youtube', 'v3', function()
     {
       searchVideos();
@@ -155,10 +189,26 @@ function searchVideos()
    request.execute(function(response) 
    {
       var data = response.result;
-      $.each(data.items , function(i,item)
+      if(data.pageInfo.totalResults == 0)
       {
-         console.log(item);
-      });
+         $("#searchField").css("border", "2px solid #FF0000")
+      }
+      else
+      {
+         $("#thumbnail").empty();
+         $("#searchField").css("border", "none")
+         $.each(data.items , function(i,item)
+         {
+            var videoId = item.id.videoId;
+            var title = item.snippet.title;
+            var picUrl = item.snippet.thumbnails.high.url;
+
+            $("#thumbnail").append("<div id=" + videoId + " class='thumbnails'><div id='thumbTitle'><h3>" + title + "</h3></div><div id='coverPic'><img src='" + picUrl + "'></div></div>")
+
+         });
+  
+      }
+
    });
 
 
