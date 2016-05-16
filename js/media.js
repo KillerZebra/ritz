@@ -143,22 +143,19 @@ function init()
 
 function searchVideos()
 {
-   var searchKey = encodeURIComponent($("#searchField").val());
-
+   var searchKey = $("#searchField").val().trim(); 
 
    var request = gapi.client.youtube.search.list({
-      forUsername: "KillerZebra69",
+      channelId: "UC-XLs_pdZ6T3x1KMUj4iSpg",
       part: 'snippet',
-      type: 'channel',
       q: searchKey,
-      maxResults: 9, 
       order: 'date'
    });
 
    request.execute(function(response) 
    {
-      var results = response.result;
-      $.each(results.items , function(i,item)
+      var data = response.result;
+      $.each(data.items , function(i,item)
       {
          console.log(item);
       });
