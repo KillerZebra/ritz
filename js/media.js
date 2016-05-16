@@ -2,6 +2,7 @@
    var nextToken = "";
    var prevToken = "";
    var uploadID;
+      var timeo;
 
 
 $(document).ready(function() 
@@ -48,13 +49,18 @@ $(document).ready(function()
       var mainId = $(".mainVideo").attr('id');
       var thumbId = $(this).attr('id');
       var thumbTitle = $(this).find('h3').html();
-      console.log(thumbTitle);
 
       $(".mainVideo").attr('id', thumbId);
       $(".mainVideo iframe").attr('src', "http://www.youtube.com/embed/" + thumbId );
       $("#mainTitle h3").html(thumbTitle);
       window.scrollTo(0, 250);
 
+   });
+
+   $('#searchField').on('input', function()
+   {
+       clearTimeout(timeo);
+       timeo = setTimeout(init, 400);
    });
    
 });
@@ -125,3 +131,51 @@ function pagination ()
 
    
 }
+
+function init()
+{
+    gapi.client.setApiKey('AIzaSyBh5KoRxCU5x75HdCKqdFDmQJLp-2svcEs');
+    gapi.client.load('youtube', 'v3', function()
+    {
+      searchVideos();
+    });
+}
+
+function searchVideos()
+{
+   var searchKey = encodeURIComponent($("#searchField").val());
+
+
+   var request = gapi.client.youtube.search.list({
+      forUsername: "KillerZebra69",
+      part: 'snippet',
+      type: 'channel',
+      q: searchKey,
+      maxResults: 9, 
+      order: 'date'
+   });
+
+   request.execute(function(response) 
+   {
+      var results = response.result;
+      $.each(results.items , function(i,item)
+      {
+         console.log(item);
+      });
+   });
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+

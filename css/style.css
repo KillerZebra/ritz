@@ -482,6 +482,13 @@ a {
 
 }
 
+#searchVideos
+{
+	right: 280;
+	position: absolute;
+	margin-top: 10px;
+}
+
 
 
 /* Sidebar */
