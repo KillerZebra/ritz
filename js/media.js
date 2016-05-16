@@ -47,9 +47,12 @@ $(document).ready(function()
    {
       var mainId = $(".mainVideo").attr('id');
       var thumbId = $(this).attr('id');
+      var thumbTitle = $(this).find('h3').html();
+      console.log(thumbTitle);
 
       $(".mainVideo").attr('id', thumbId);
       $(".mainVideo iframe").attr('src', "http://www.youtube.com/embed/" + thumbId );
+      $("#mainTitle h3").html(thumbTitle);
       window.scrollTo(0, 250);
 
    });
