@@ -13,6 +13,7 @@ var timer;
 
 		if(error == 0)
 		{
+			console.log("hi");
 			for(var x = 0; x < inputs.length -2 ; x++ )
 			{
 				var id = inputs[x].id;
@@ -45,6 +46,7 @@ var timer;
 			}
 			if(error == 0)
 			{
+				console.log("hi2");
 				var fName = $("#fName").val();
 				var lName = $("#lName").val();
 				var uName = $("#uName").val();
@@ -56,10 +58,11 @@ var timer;
 				{
 			    	url : "php/register.php",
 			    	type: "POST",
-			    	data : {fName:fName,lName:lName,uName:uName,email:email,pass:password}
+			    	data: {fName:fName,lName:lName,uName:uName,email:email,pass:password}
+
 				}); 
 
-
+				console.log("hi3");
 			}
 			else
 			{
