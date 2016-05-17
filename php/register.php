@@ -8,20 +8,7 @@
 	$email = $_POST["email"];
 	$pass  = $_POST["pass"];
 	$hash = md5($salt.$pass);
-/*
-	$account = array
-	(
-		// key       	  value
-		"fname" 	=> 	$_POST["firstname"],
-		"lname"		=>	$_POST["lastname"],
-		"uname"		=>	$_POST["username"],
-		"email"		=> 	$_POST["email"],
-		"password"	=>  $_POST["password"],
-		"cpassword"	=>  $_POST["cpassword"]
-	);
 
-	print_r($account);
-	*/
 
 	if ($connect->connect_error) 
 	{
@@ -29,7 +16,7 @@
 	}
 	else
 	{
-		$query = "INSERT INTO accounts
+		$query = "INSERT INTO `accounts`
 			(`firstName` , `lastName` , `username` , `email` , `password`)
 			VALUES 
 			('$fName' , '$lName' , '$uName' , '$email' , '$hash')";

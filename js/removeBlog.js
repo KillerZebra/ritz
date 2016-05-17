@@ -41,7 +41,7 @@ function showPage(data)
       dataType: "JSON",
       success: function(data)
       {
-                     json = data;
+         json = data;
          listBlogs(data);
       },
    });
