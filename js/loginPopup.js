@@ -2,7 +2,7 @@
 	$("#loginTrigger").click(function()
 	{
 		$("#LoginFormPopup").fadeIn();
-			$("#LoginFormPopup").css({"visibility":"visible","display":"block"});
+		$("#LoginFormPopup").css({"visibility":"visible","display":"block"});
 	});
 
 	$("#closeLogin").click(function()
@@ -10,8 +10,10 @@
 		$("#LoginFormPopup").css({"visibility":"hidden","display":"block"});
 	});
 
+	//this lets you press enter to submit
 	$('input').keypress(function (e) 
 	{
+		//keypress "E" 13 is enter
   		if (e.which == 13) 
   		{
 			var isValid = validate();

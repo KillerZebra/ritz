@@ -10,7 +10,6 @@
 
 	<script src="../jquery/jquery.min.js"></script>
 	<script type="text/javascript" src="../js/addBlog.js"></script>
-  <script type="text/javascript" src="../js/blogController.js"></script>
 
 
 	<!-- tinymce -->
@@ -57,15 +56,17 @@
 	<div id="page">
 		<div id="content">
 			<div id="blogFormSection">
-				<form id="blogForm">
-          <label for="title" id="titleLabel">Title: </label>
-          <input type="text" id="title"><br />
-				</form>
-          <label for="tinymceEditor" id="mceContent">Content: </label>
-          <textarea id="tinymceEditor"></textarea>
-          <div id="buttons">
-            <input type="button" value="Submit" id="formSubmit">
-          </div>
+				<div id="titleArea">
+					<form id="blogForm">
+	          			<label for="title" id="titleLabel">Title: </label>
+	          			<input type="text" id="title"><br />
+					</form>
+				</div>
+          		<label for="tinymceEditor" id="mceContent">Content: </label>
+          		<textarea id="tinymceEditor"></textarea>
+          		<div id="buttons">
+            		<input type="button" value="Submit" id="formSubmit">
+          		</div>
 			</div>
 
 		</div>
