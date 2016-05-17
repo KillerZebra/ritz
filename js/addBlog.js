@@ -12,7 +12,7 @@ $(document).ready(function()
             $("#loginTrigger").html('Welcome ' + data.info['fName']);
             $("#register a").html("Logout");
             $("#register a").attr("href", "php/logout.php");
-            $("#navigation ul li:last").after("<li><a href='portal.html'>Portal</a></li>");
+            $("#navigation ul li:last").after("<li><a href='../portal.html'>Portal</a></li>");
 
             showPage(data);
 
@@ -67,9 +67,10 @@ function showPage(data)
    			url: "../php/blogs.php",
    			data: {action:"addBlog",author:author, title:title, blog:content},
    			dataType: "JSON",
-   			success: function(data)
+   			complete: function()
    			{
-   				console.log("SUCCESS");
+          $("#title").val("");
+          tinyMCE.activeEditor.setContent("");
    			}
 
    		});
