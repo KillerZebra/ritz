@@ -21,6 +21,7 @@ $(document).ready(function()
       success: function(data)
       {
          apiKey = data;
+         console.clear();
          getChannel();
       }
    });
