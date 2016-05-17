@@ -10,8 +10,33 @@
 		$("#LoginFormPopup").css({"visibility":"hidden","display":"block"});
 	});
 
+	$('input').keypress(function (e) 
+	{
+  		if (e.which == 13) 
+  		{
+			var isValid = validate();
+			if(isValid == "valid")
+			{
+				login();
+			}
+			return false;
+  		}
+	});
+
 
 	$("#submit").click(function()
+	{
+		var isValid = validate();
+		if(isValid == "valid")
+		{
+			login();
+		}
+
+		
+	});
+
+
+	function login()
 	{
 		var username = $("#login").val();
 		var pass = $("#password").val();
@@ -25,7 +50,6 @@
 			dataType: "JSON",
 			success: function(data)
 			{
-				console.log(data);
 				$("#loginTrigger").html('Welcome ' + data.info['fName']);
 	            $("#register a").html("Logout");
 	            $("#register a").attr("href", "php/logout.php");
@@ -36,7 +60,24 @@
 			}
 
 		});
+	}
 
-		
-	});
+	function validate()
+	{
+		if($("#password").val() != "" && $("#login").val() != "")
+		{
+			return "valid";
+		}
+		else
+		{
+			if($("#password").val() == "")
+			{
+				$("#password").css("border", "2px solid #FF0000");
+			}
+			if($("#login").val() == "")
+			{
+				$("#login").css("border", "2px solid #FF0000");
+			}
+		}
+	}
 
