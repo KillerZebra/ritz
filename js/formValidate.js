@@ -1,7 +1,7 @@
 
 var timer;
 
-	$("#regForm").submit(function(event)
+	$("#submit").click(function(event)
 	{
 		var error = 0; 
 		var inputs = $(":input");
@@ -13,7 +13,7 @@ var timer;
 
 		if(error == 0)
 		{
-			for(var x = 0; x < inputs.length -2 ; x++ )
+			for(var x = 0; x < inputs.length - 2 ; x++ )
 			{
 				var id = inputs[x].id;
 				var val = inputs[x].value;
@@ -55,8 +55,8 @@ var timer;
 				$.ajax(
 				{
 					type: "POST",
-			    	url : "php/register.php",
-			    	data: {fName:fName,lName:lName,uName:uName,email:email,pass:password},
+			    	url : "php/accounts.php",
+			    	data: {action:"register", fName:fName, lName:lName, uName:uName, email:email, pass:password},
 			    	dataType: "JSON",
 			    	successs: function(data)
 			    	{
@@ -68,12 +68,12 @@ var timer;
 			}
 			else
 			{
-				event.preventDefault();
+				//event.preventDefault();
 			}
 		}
 		else
 		{
-			event.preventDefault();
+			//event.preventDefault();
 
 		}
 
@@ -106,10 +106,10 @@ function checkEmail()
 
 	$.ajax(
 	{
-		url : "php/validate.php",
+		url : "php/accounts.php",
 		type : "POST",
 	    dataType : "json",
-		data : {email:email},
+		data : {action:"validation", email:email},
 		success: function(response)
 		{
 			if(!isValidEmailAddress(email))
@@ -141,10 +141,10 @@ function checkUsername()
 	var username = $("#uName").val();
 	$.ajax(
 	{
-		url : "php/validate.php",
+		url : "php/accounts.php",
 		type : "POST",
 	    dataType : "json",
-		data : {username:username},
+		data : {action:"validation", username:username},
 		success: function(response)
 		{
 			$("#loading1").attr('src', 'images/check.png');

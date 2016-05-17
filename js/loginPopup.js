@@ -1,31 +1,36 @@
-$("#loginTrigger").click(function()
+
+	$("#loginTrigger").click(function()
 	{
 		$("#LoginFormPopup").fadeIn();
-   		$("#LoginFormPopup").css({"visibility":"visible","display":"block"});
+			$("#LoginFormPopup").css({"visibility":"visible","display":"block"});
 	});
 
 	$("#closeLogin").click(function()
 	{
-   		$("#LoginFormPopup").css({"visibility":"visible","display":"block"});
+		$("#LoginFormPopup").css({"visibility":"hidden","display":"block"});
 	});
 
 
-	$("#submit").click(function(event)
+	$("#submit").click(function()
 	{
-			var username = $("#login").val();
-			var pass = $("#password").val();
+		var username = $("#login").val();
+		var pass = $("#password").val();
 
 				
 		$.ajax(
 		{
-			url : "php/login.php",
-			type : "POST",
-	    	dataType : "json",
-			data : {username:username,pass:pass},
-			cache: false,
+			type: "POST",
+			url: "php/accounts.php",
+			data: {action:"login", username:username,pass:pass},
+			dataType: "JSON",
 			success: function(data)
 			{
-				setTimeout(' window.location.href = "portal.html"; ', 1000);
+				console.log(data);
+				$("#loginTrigger").html('Welcome ' + data.info['fName']);
+	            $("#register a").html("Logout");
+	            $("#register a").attr("href", "php/logout.php");
+				$("#navigation ul li:last").after("<li><a href='portal.html'>Portal</a></li>");
+				$("#LoginFormPopup").css({"visibility":"hidden","display":"block"});
 
 
 			}
@@ -34,5 +39,4 @@ $("#loginTrigger").click(function()
 
 		
 	});
-
 
