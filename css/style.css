@@ -125,8 +125,8 @@ a {
 
 #loginFormPopup
 {
-   width:350px;
-   height:115px;
+   width:200px;
+   height:150px;
    margin-top:50px;
    background-color:#585858;
    border-radius:3px;
@@ -144,15 +144,15 @@ a {
 #closeLogin 
 {
     height: 15px;
-    left: 335px;
     position: absolute;
     top: 0px;
+    left: 185px;
     width: 15px;
 }
 
 #login
 {
-   width:162px;
+   width:165px;
    height:40px;
    border:2px solid silver;
    border-radius:3px;
@@ -173,14 +173,15 @@ a {
 #submit
 {
    margin-top: 5px; 
-   margin-left: 40px;
-   width: 250px;
+   width: 150px;
    height: 40px;
    border:none;
    border-radius:3px;
    color:#E6E6E6;
    background-color:grey;
    font-size:20px;
+      margin-left: 10px;
+
 }
 
 #navigation {
