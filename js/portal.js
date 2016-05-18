@@ -33,7 +33,7 @@ $(document).ready(function()
 
 function doStuff(level)
 {
-      $("#navigation ul li:last").after("<li><a href='portal.html'>Portal</a></li>");
+   $("#navigation ul li:last").after("<li><a href='../portal.html'>Portal</a></li>");
 
 	if(level == 1)
 	{

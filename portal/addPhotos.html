@@ -47,22 +47,23 @@
 	<!-- end #menu -->
 	<div id="page">
 		<div id="content">
-
-			<form id="photoForm">
-				<label for="group" class="label">Select Group</label>
-					<select id="group" name="group">
-						<option selected disabled value> -- select an option -- </option>
-				  		<option value="weddings">Weddings</option>
-				    	<option value="graduation">Graduation</option>
-				   		<option value="engagement">Engagement</option>
-				    	<option value="family">Family</option>
-				  	</select><br />
-				<label for="album" class="label">Album Name</label>
-					<input type="text" id="album"><br />
-				<label for"photos" class="label">Upload Photos</label>
-					<input type='file' id="photos" name="photos" multiple="true" accept="image/*"/><br />
-				<input type="button" value="submit" id="photoSubmit">
-			</form>
+			<div id="holder">
+				<form id="photoForm">
+					<label for="group" class="label">Select Group</label>
+						<select id="group" name="group">
+							<option selected disabled value> -- select an option -- </option>
+					  		<option value="weddings">Weddings</option>
+					    	<option value="graduation">Graduation</option>
+					   		<option value="engagement">Engagement</option>
+					    	<option value="family">Family</option>
+					  	</select><br />
+					<label for="album" class="label">Album Name</label>
+						<input type="text" id="album"><br />
+					<label for"photos" class="label">Upload Photos</label>
+						<input type='file' id="photos" name="photos" multiple="true" accept="image/*"/><br />
+					<input type="button" value="submit" id="photoSubmit">
+				</form>
+			</div>
 			<div id="success">
 			</div>
 			<div id="error">

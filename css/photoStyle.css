@@ -245,9 +245,15 @@ a {
 
 #content {
 	visibility: hidden;
-	width: 750px;
+	width: 990px;
 	padding: 30px 0px 0px 0px;
 
+}
+
+#holder
+{
+	margin: 0 auto;
+	width: 50%;
 }
 
 #photoForm
@@ -258,7 +264,6 @@ a {
 #photoSubmit
 {
    margin-top: 10px; 
-   margin-left: 40px;
    width: 250px;
    height: 40px;
    border:none;
@@ -271,6 +276,12 @@ a {
 #photoSubmit:hover
 {
 	cursor: pointer;
+}
+
+label
+{
+	color: white;
+	font-size: 14px;
 }
 
 input
