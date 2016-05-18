@@ -102,6 +102,8 @@ function loadPage(pageNumber)
 function memberAccess()
 {
    $("#navigation ul li:last").after("<li><a href='portal.html'>Portal</a></li>");
+   $("#LoginFormPopup").empty();
+   $("#LoginFormPopup").append("<div id='LFPUAccount'><div id='LFPUTitle'>Account</div><ul><li>Change Email</li><li>Change Password</li></ul></div>")
 }
 
 

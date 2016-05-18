@@ -180,8 +180,48 @@ a {
    color:#E6E6E6;
    background-color:grey;
    font-size:20px;
-      margin-left: 10px;
+   margin-left: 10px;
 
+}
+#LFPUTitle
+{
+	margin: 0 auto;
+	width: 50%;
+	color: white;
+	font-size: 20px;
+	font-weight: bold;
+
+}
+
+#LFPUAccount ul {
+	margin: 0px 0px 0px 10px;
+	padding: 12px 0px 0px 0px;
+	list-style: none;
+	line-height: 25px;
+
+}
+
+#LFPUAccount li {
+	border-bottom: 1px solid black;
+	font-size: 14px;
+	margin-bottom: 5px;
+	color: #FFFFFF;
+	-webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none;   /* Chrome/Safari/Opera */
+  -khtml-user-select: none;    /* Konqueror */
+  -moz-user-select: none;      /* Firefox */
+  -ms-user-select: none;       /* Internet Explorer/Edge */
+
+}
+
+#LFPUAccount li:last-child 
+{ 
+	border-bottom: none; 
+}
+
+#LFPUAccount li:hover
+{
+	cursor: pointer;
 }
 
 #navigation {
