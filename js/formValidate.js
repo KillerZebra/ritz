@@ -60,7 +60,8 @@ var timer;
 			    	dataType: "JSON",
 			    	successs: function(data)
 			    	{
-			    		console.log(data);
+			    		$("#regForm").clearForm();
+			    		alert("Account Successfully Created");
 			    	}
 
 				}); 
