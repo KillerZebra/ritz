@@ -7,6 +7,7 @@
 	<link href="css/portalStyle.css" rel="stylesheet" type="text/css"  />
 	<script src="jquery/jquery.min.js"></script>
 	<script src="js/portal.js"></script>
+	<script src="js/update.js"></script>
 
 
 </head>
@@ -48,8 +49,26 @@
 	<!-- end #menu -->
 	<div id="page">
 		<div id="content">
+		<div class="overlay"></div>
 
-			
+			<div id="updateBox">
+  				<div id="updateBoxHeader">
+			        <input type="image" id="closeUpdateBox" src="images/close.png">
+	   				<h2>Modal Header</h2>
+				</div>
+	  			<div id="updateBoxBody">
+				    <label for="current">Current Email</label>
+				    <input type="text" id="current"><br>
+				    <label for="new">New Email</label>
+				    <input type="text" id="new" class="fields">
+				    <label for="repeat">Retype New Email</label>
+				    <input type="text" id="repeat" class="fields">
+	 			</div>
+	  			<div id="updateBoxFooter">
+	   				<input type="button" id="submitUpdate" value="Update Email">
+	  			</div>
+			</div>
+				
 
 		</div>
 	</div>
