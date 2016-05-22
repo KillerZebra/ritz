@@ -182,7 +182,8 @@ a {
 
 }
 
-#overlay {
+.overlay 
+{
  	position:absolute;
 	display:none; 
     background-color: rgba(0, 0, 0, 0.7);
@@ -190,6 +191,7 @@ a {
 	left: 0;
     bottom: 0;
     right: 0;
+    z-index: 9;
 }
 
 #updateBox
@@ -202,7 +204,7 @@ a {
 	border-radius: 30px;
  	left: 0;
   	right: 0;
-  	z-index: 5000;
+  	z-index: 10;
   	display: none;
 
 }
@@ -397,6 +399,12 @@ a {
 	list-style: none;
 	line-height: normal;
 	margin-bottom: 10px;
+
+}
+
+.back li:hover
+{
+	cursor: pointer;
 
 }
 

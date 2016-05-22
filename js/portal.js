@@ -1,3 +1,5 @@
+var accountID;
+
 $(document).ready(function() 
 {
 
@@ -12,11 +14,11 @@ $(document).ready(function()
          dataType: "json",
          success: function(data)
          {
-           
             $("#loginTrigger").html('Welcome ' + data.info['fName']);
             $("#register a").html("Logout");
             $("#register a").attr("href", "php/logout.php");
             level = data.info['level'];
+            accountID = data.info['id'];
             doStuff(level);
 
 
