@@ -207,7 +207,6 @@ error_reporting(E_ALL);
 		if(mysqli_num_rows($result) == 1)
 		{
 			$row = mysqli_fetch_assoc($result);
-			print_r($row);
 
 			if($currentHash == $row['password'])
 			{

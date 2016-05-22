@@ -26,34 +26,68 @@ $(document).ready(function()
 
 	$("#submitUpdate").click(function()
 	{
-			console.log(accountID);
+		$("#current").css("border", "none");
+		$("#new").css("border", "none");
+		$("#repeat").css("border", "none");
 
 		var current = $("#current").val();
 		var newInfo = $("#new").val();
 		var confirm = $("#repeat").val();
+		var error = 0;
+
+		if(current == "")
+		{
+			$("#current").css("border", "3px solid #FF0000");
+			error++;
+		}
+		if(newInfo == "")
+		{
+			$("#new").css("border", "3px solid #FF0000");
+			error++;
+		}
+		if(confirm == "")
+		{
+			$("#repeat").css("border", "3px solid #FF0000");
+			error++;
+		}
 
 
-			if(newInfo == confirm)
+		if(action == "updateEmail")
+		{
+			if(!isValidEmailAddress(current))
 			{
-				$.ajax(
+				$("#current").css("border", "3px solid #FF0000");
+				error++;
+			}
+			if(!isValidEmailAddress(newInfo))
+			{
+				$("#new").css("border", "3px solid #FF0000");
+				error++;
+			}
+		}
+		if(newInfo != confirm)
+		{
+			$("#new").css("border", "3px solid #FF0000");
+			$("#repeat").css("border", "3px solid #FF0000");
+			error++;
+		}
+
+		if(error == 0)
+		{
+			$.ajax(
+			{
+				type: "POST",
+				url: "php/accounts.php",
+				data: {action:action, id:accountID, current:current, newInfo:newInfo},
+				dataType: "JSON",
+				success: function(data)
 				{
-					type: "POST",
-					url: "php/accounts.php",
-					data: {action:action, id:accountID, current:current, newInfo:newInfo},
-					dataType: "JSON",
-					success: function(data)
-					{
-						alert(data.message);
-						console.log(data.type + "    " + data.message);
-					}
+					alert(data.message);
+					console.log(data.type + "    " + data.message);
+				}
 
-				});
-			}
-			else
-			{
-				alert("Emails do not match");
-			}
-		
+			});
+		}
 
 	});
 
@@ -75,9 +109,9 @@ function showPopup(type)
 	else
 	{
 		$("#updateBox h2").html("Update Password");
-		$("#updateBoxBody").append("<label for='current' id='currentLabel'>Current Password</label><input type='text' id='current'><br>"
-				    				+ "<label for='new' id='newLabel'>New Password</label><input type='text' id='new' class='fields'>"
-				    				+ "<label for='repeat' id='retypeLabel'>Retype New Password</label><input type='text' id='repeat' class='fields'>");
+		$("#updateBoxBody").append("<label for='current' id='currentLabel'>Current Password</label><input type='password' id='current'><br>"
+				    				+ "<label for='new' id='newLabel'>New Password</label><input type='password' id='new' class='fields'>"
+				    				+ "<label for='repeat' id='retypeLabel'>Retype New Password</label><input type='password' id='repeat' class='fields'>");
 		action = "updatePassword";
 
 	}
