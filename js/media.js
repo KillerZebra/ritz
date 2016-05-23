@@ -2,7 +2,7 @@
    var nextToken = "";
    var prevToken = "";
    var uploadID;
-      var timeo;
+   var timeo;
    var apiKey;
 
 

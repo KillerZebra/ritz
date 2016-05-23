@@ -1,9 +1,9 @@
 <?php
-/*
+
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
-*/
+
 	$action = $_POST["action"];
 
 	switch ($action)
@@ -20,6 +20,9 @@ error_reporting(E_ALL);
 		case 'removeBlog':
 			removeBlog();
 			break;
+		case 'search':
+			searchTitles();
+			break;
 	}
 
 
@@ -34,8 +37,19 @@ error_reporting(E_ALL);
 		$page = $_POST["pages"];
 		$offset = ($page * 3) - 3;
 
-		$query = "SELECT SQL_CALC_FOUND_ROWS * FROM `blogs` ORDER BY `date` DESC LIMIT 3 OFFSET $offset ";
-		$query2 = "SELECT FOUND_ROWS()  AS count" ;
+		if(isset($_POST['title']))
+		{
+			$value = $_POST["title"];
+			$query = "SELECT SQL_CALC_FOUND_ROWS * FROM `blogs` WHERE `title` LIKE '%$value%' ORDER BY `date` DESC LIMIT 3 OFFSET $offset";
+			$query2 = "SELECT FOUND_ROWS() AS count" ;
+
+		}
+		else
+		{
+			$query = "SELECT SQL_CALC_FOUND_ROWS * FROM `blogs` ORDER BY `date` DESC LIMIT 3 OFFSET $offset";
+			$query2 = "SELECT FOUND_ROWS() AS count" ;
+
+		}
 
 		$result = $connect->query($query);
 		$result2 = $connect->query($query2);
@@ -82,7 +96,7 @@ error_reporting(E_ALL);
 	function allBlogs()
 	{
 		include "../../database/connectToDB.php";
-		$query = "SELECT title, author, date, blogID FROM `blogs` ORDER BY `date` DESC";
+		$query = "SELECT `title`, `author`, `date`, `blogID` FROM `blogs` ORDER BY `date` DESC";
 
 		$result = $connect->query($query);
 
@@ -111,6 +125,8 @@ error_reporting(E_ALL);
 		$connect->close();
 
 	}
+
+
 
 
 ?>

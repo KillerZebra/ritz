@@ -1,5 +1,7 @@
+
 $(document).ready(function() 
 {
+   var timer;
 
    loadPage()
 
@@ -27,11 +29,28 @@ $(document).ready(function()
          var number = $(this).html();
          loadPage(number);
       });
+
+      $("#searchBlogs").keyup(function()
+      {
+         if($(this).val().length > 3)
+         {
+            var page = 1;
+            var title = $(this).val();
+            loadPage(page,title);
+         }
+         if($(this).val().length == 0)
+         {
+            var page = 1;
+            var title = "";
+            loadPage(page,title);
+         }
+
+      });
 });
 
 function pagination(pages)
 {
-
+   $("#pagination ul").empty();
    pages = pages/3;
    var rounded = Math.ceil(pages);
    if($("#pagination li").length == 0)
@@ -43,7 +62,7 @@ function pagination(pages)
    }
 }
 
-function loadPage(pageNumber)
+function loadPage(pageNumber, title)
 {
 
    if(pageNumber == null)
@@ -55,7 +74,7 @@ function loadPage(pageNumber)
    {
          type: "POST",
          url: "php/blogs.php",
-         data: {action:"getBlog" , pages:pageNumber},
+         data: {action:"getBlog" , pages:pageNumber, title:title},
          dataType: "json",
          success: function(data)
          {
@@ -105,5 +124,7 @@ function memberAccess()
    $("#LoginFormPopup").empty();
    $("#LoginFormPopup").append("<div id='LFPUAccount'><div id='LFPUTitle'>Account</div><ul><li>Change Email</li><li>Change Password</li></ul></div>")
 }
+
+
 
 
