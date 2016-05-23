@@ -55,7 +55,7 @@ $(document).ready(function()
       var thumbTitle = $(this).find('h3').html();
 
       $(".mainVideo").attr('id', thumbId);
-      $(".mainVideo iframe").attr('src', "http://www.youtube.com/embed/" + thumbId );
+      $(".mainVideo iframe").attr('src', "http://www.youtube.com/embed/" + thumbId + "?rel=0&autoplay=1");
       $("#mainTitle h3").html(thumbTitle);
       window.scrollTo(0, 250);
 
@@ -86,7 +86,7 @@ function getChannel()
       "https://www.googleapis.com/youtube/v3/channels",
       {
          part: "contentDetails",
-         forUsername: "KillerZebra69",
+         forUsername: "austinstjean",
          key: apiKey
       },
       function(data){
@@ -126,7 +126,8 @@ function getVideos(uploadID)
          $.each(data.items, function(i,item)
          {
             //console.log(item);
-            var title = item.snippet.title;
+            var otitle = item.snippet.title;
+            var title = otitle.substring(0, 30);
             var videoId = item.snippet.resourceId.videoId;
             var picUrl = item.snippet.thumbnails.high.url;
 
@@ -155,12 +156,12 @@ function pagination ()
 {
    if(nextToken != "")
    {
-      $("#videoPagination ul").append("<li id='scrollRight'>-></li>");
+      $("#videoPagination ul").append("<li id='scrollRight'>Next</li>");
 
    }
    if(prevToken != "")
    {
-      $("#videoPagination ul").prepend("<li id='scrollLeft'><-</li>");
+      $("#videoPagination ul").prepend("<li id='scrollLeft'>Prev</li>");
 
    }
 
@@ -181,7 +182,7 @@ function searchVideos()
    var searchKey = $("#searchField").val().trim(); 
 
    var request = gapi.client.youtube.search.list({
-      channelId: "UC-XLs_pdZ6T3x1KMUj4iSpg",
+      channelId: "UCGgb9k0H2BKu3Sc8KWmVMlQ",
       part: 'snippet',
       q: searchKey,
       order: 'date'

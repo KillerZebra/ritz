@@ -282,11 +282,11 @@ a {
 
 #searchBlogs
 {
-	width: 15%;
-	margin: 0 auto;
-	position: absolute;
-	right: 300;
-	margin-top: 20px;
+	width: 25%;
+	position: relative;
+	margin-top: -10px;
+	float: right;
+
 }
 
 #page-bgbtm {
@@ -423,7 +423,7 @@ a {
 
 #videos {
 	width: 960px;
-	height: 1250px;
+	height: 1300px;
 	margin: 0 auto;
 	padding: 0;
 	margin-top: 15px;
@@ -445,7 +445,7 @@ a {
 
 .thumbnails h3
 {
-	color: #D80000;
+	color: white;
 
 }
 
@@ -471,7 +471,7 @@ a {
 	width: 280px;
 	display: inline-block;
 	position: relative;
-	margin-top: 40px;
+	margin-top: 50px;
 	margin-left: 20px;
 	text-align: center;
 }
@@ -490,10 +490,11 @@ a {
 #thumbTitle
 {
 	width: 250px;
-		position: absolute;
-		left: 50%;
-		-webkit-transform: translateX(-50%);
-		transform: translateX(-50%)
+	position: absolute;
+	left: 50%;
+	-webkit-transform: translateX(-50%);
+	transform: translateX(-50%);
+	margin-top: -50px;
 
 }
 
@@ -519,7 +520,7 @@ a {
     margin-right: 5px;
     border-style: solid;
     border-width: 2px;
-    width: 25px;
+    width: 50px;
     background-color: #1F1F1F;
     font-size: 20px;
 	color: #FFFFFF;
@@ -534,9 +535,10 @@ a {
 
 #searchVideos
 {
-	right: 280;
-	position: absolute;
-	margin-top: 10px;
+	width: 25%;
+	margin-left: 700px;
+	margin-top: 40px;
+	position: relative;
 }
 
 
@@ -549,6 +551,7 @@ a {
 	padding: 0px;
 	color: #464032;
 	background: #141414;
+	position: static;
 }
 
 #sidebar ul {
