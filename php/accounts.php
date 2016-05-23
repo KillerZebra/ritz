@@ -1,8 +1,11 @@
 <?php
 
+/*
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
+*/
+
 
 	$action = $_POST['action'];
 
@@ -50,7 +53,7 @@ error_reporting(E_ALL);
 				VALUES 
 				('$fName' , '$lName' , '$uName' , '$email' , '$hash')";
 
-			$result = mysqli_query($connect , $query);
+			$result = $connect->query($query);
 
 			if ($result)
 			{
@@ -65,7 +68,7 @@ error_reporting(E_ALL);
 
 
 
-		mysqli_close($connect);
+		$connect->close();
 	}
 
 	function validation()
@@ -82,16 +85,22 @@ error_reporting(E_ALL);
 			}
 			else
 			{
-				$query = "SELECT `email` FROM `accounts` WHERE `email` = '$email'";
+				$query = "SELECT * FROM `accounts` WHERE `email` = '$email'";
 
-				$result = mysqli_query($connect , $query);
+				$result = $connect->query($query);
 
-				if (mysqli_num_rows($result) == 0)
+				if ($result->num_rows == 0)
 				{
-					echo json_encode("OK");
+					echo json_encode(array('type' => 'valid', 'message' => "Email not used"));
+				}
+				else
+				{
+					echo json_encode(array('type' => 'error', 'message' => "Email already registered"));
+
 				}
 
 			}
+
 		}
 
 		//checks if username exist
@@ -104,17 +113,24 @@ error_reporting(E_ALL);
 			}
 			else
 			{
-				$query = "SELECT `username` FROM `accounts` WHERE `username` = '$username'";
+				$query = "SELECT * FROM `accounts` WHERE `username`='$username'";
 
-				$result = mysqli_query($connect , $query);
+				$result = $connect->query($query);
 
-				if (mysqli_num_rows($result) == 0)
+				if ($result->num_rows == 0)
 				{
-					echo json_encode("OK");
+					echo json_encode(array('type' => 'valid', 'message' => "Username not used"));
+				}
+				else
+				{
+					echo json_encode(array('type' => 'error', 'message' => "Username already registered"));
+
 				}
 
 			}
 		}
+		$connect->close();
+
 	}
 
 	function tryLogin()
@@ -129,18 +145,15 @@ error_reporting(E_ALL);
 
 		$query = "SELECT * FROM `accounts` WHERE `username` = '$uName' AND `password` = '$hash'";
 
-		$result = mysqli_query($connect , $query);
+		$result = $connect->query($query);
 
-		if (mysqli_num_rows($result) == 0)
+		if ($result->num_rows == 0)
 		{
-
-		    echo json_encode("bad password");
+			echo json_encode(array('type' => 'error', 'message' => "Bade Password"));
 		}
 		else
 		{
-
-			$row = mysqli_fetch_array($result);
-
+			$row = $result->fetch_array(MYSQLI_ASSOC);
 	        $_SESSION['username'] = $row['username'];
 	        $_SESSION['fName'] = $row['firstName'];
 	       	$_SESSION['level'] = $row['level'];
@@ -151,6 +164,8 @@ error_reporting(E_ALL);
 	        echo json_encode(array("info" => $_SESSION));
 			
 		}
+
+		$connect->close();
 
 	}
 
@@ -163,15 +178,15 @@ error_reporting(E_ALL);
 		$current = $_POST['current'];
 
 		$getquery = "SELECT `email` FROM `accounts` WHERE `email`='$current' AND `id`='$id' LIMIT 1";
-		$result = mysqli_query($connect , $getquery);
+		$result = $connect->query($getquery);
 
-		if(mysqli_num_rows($result) == 1)
+		if($result->num_rows == 1)
 		{
-			$row = mysqli_fetch_assoc($result);
+			$row = $result->fetch_assoc();
 
 
  			$query = "UPDATE `accounts` SET `email`='$new' WHERE `id`='$id' LIMIT 1";
- 			$result = mysqli_query($connect , $query);
+ 			$reuslt = $connect->query($query);
 
  			if($result)
  			{
@@ -185,8 +200,7 @@ error_reporting(E_ALL);
 			 echo json_encode(array('type' => 'error', 'message' => "This email is not associated with your account"));
 		}
 
-
-
+		$connect->close();
 
 	}
 
@@ -202,16 +216,16 @@ error_reporting(E_ALL);
 		$newHash = md5($salt.$newPass);
 
 		$getquery = "SELECT `password` FROM `accounts` WHERE `id`='$id' LIMIT 1";
-		$result = mysqli_query($connect, $getquery);
+		$result = $connect->query($query);
 
-		if(mysqli_num_rows($result) == 1)
+		if($result->num_rows == 1)
 		{
-			$row = mysqli_fetch_assoc($result);
+			$row = $result->fetch_assoc();
 
 			if($currentHash == $row['password'])
 			{
 				$query = "UPDATE `accounts` SET `password`='$newHash' WHERE `id`='$id'";
-				$result = mysqli_query($connect, $query);
+				$result = $connect->query($query);
 
 				if($result)
  				{
@@ -222,10 +236,9 @@ error_reporting(E_ALL);
 			{
 				echo json_encode(array('type' => 'error', 'message' => "Current password does not match"));
 			}
-		}
-
-
-
+		}		
+		
+		$connect->close();
 
 	}
 

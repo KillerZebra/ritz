@@ -34,22 +34,22 @@ error_reporting(E_ALL);
 		$page = $_POST["pages"];
 		$offset = ($page * 3) - 3;
 
-		$query = "SELECT SQL_CALC_FOUND_ROWS * FROM `blogs` ORDER BY `date` DESC LIMIT 3 OFFSET $offset ";
+		$query = "SELECT SQL_CALC_FOUND_ROWS * FROM `blogs` ORDER BY `date` DESC LIMIT 3 OFFSET '$offset' ";
 		$query2 = "SELECT FOUND_ROWS()  AS count" ;
 
-		$result = mysqli_query($connect , $query);
-		$result2 = mysqli_query($connect , $query2);
+		$result = $connect->query($query);
+		$result2 = $connect->query($query2);
 
-		$numberOfBlogs = mysqli_fetch_assoc($result2);
+		$numberOfBlogs = $result2->fetch_assoc();
 		$dataArray[] = $numberOfBlogs;
 
 
 
-		if(mysqli_num_rows($result) != 0)
+		if($result->num_rows != 0)
 		{
 
 			
-			while($row = mysqli_fetch_assoc($result))
+			while($row = $result->fetch_assoc())
 			{
 				$row['date'] = date("F j, Y", strtotime($row['date']));
 				$dataArray[] = $row;
@@ -57,6 +57,8 @@ error_reporting(E_ALL);
 			echo json_encode(array('blogs' => $dataArray));
 
 		}
+
+		$connect->close();
 	}
 
 	function addBlog()
@@ -72,9 +74,9 @@ error_reporting(E_ALL);
 					VALUES
 					('$title' , '$author' , '$blog' , '$date')";
 
-		$result = mysqli_query($connect , $query);
+		$result = $connect->query($query);
 
-		mysqli_close($connect);
+		$connect->close();
 	}
 
 	function allBlogs()
@@ -82,11 +84,11 @@ error_reporting(E_ALL);
 		include "../../database/connectToDB.php";
 		$query = "SELECT title, author, date, blogID FROM `blogs` ORDER BY `date` DESC";
 
-		$result = mysqli_query($connect, $query);
+		$result = $connect->query($query);
 
-		if(mysqli_num_rows($result) != 0)
+		if($result->num_rows != 0)
 		{
-			while($row = mysqli_fetch_assoc($result))
+			while($row = $result->fetch_assoc())
 			{
 				$row['date'] = date("F j, Y", strtotime($row['date']));
 				$dataArray[] = $row;
@@ -94,6 +96,7 @@ error_reporting(E_ALL);
 			echo json_encode(array('blogs' => $dataArray));
 		}
 
+		$connect->close();
 	}
 
 	function removeBlog()
@@ -102,7 +105,11 @@ error_reporting(E_ALL);
 		$id = $_POST['blogId'];
 
 		/* delete rows */
-		mysqli_query($connect, "DELETE FROM `blogs` WHERE `blogID`='$id' LIMIT 1");
+		$query = "DELETE FROM `blogs` WHERE `blogID`='$id' LIMIT 1";
+		$connect->query($query);
+
+		$connect->close();
+
 	}
 
 

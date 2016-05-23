@@ -105,33 +105,39 @@ function checkEmail()
 {
 	var email = $("#email").val();
 
-	$.ajax(
+	if(isValidEmailAddress(email))
 	{
-		url : "php/accounts.php",
-		type : "POST",
-	    dataType : "json",
-		data : {action:"validation", email:email},
-		success: function(response)
+		$.ajax(
 		{
-			if(!isValidEmailAddress(email))
+			url : "php/accounts.php",
+			type : "POST",
+		    dataType : "json",
+			data : {action:"validation", email:email},
+			success: function(data)
 			{
-				$("#loading2").attr('src', 'images/close.png');
-				$("#email").css("border", "2px solid #FF0000");
-			}
-			else
+				if(data.type == "valid")
+				{
+					$("#email").css("border", "none");
+					$("#loading2").attr('src', 'images/check.png');
+				}
+				else
+				{
+					$("#loading2").attr('src', 'images/close.png');
+					$("#email").css("border", "2px solid #FF0000");
+				}
+			},
+			error: function(error)
 			{
 				$("#email").css("border", "none");
 				$("#loading2").attr('src', 'images/check.png');
 			}
-		},
-		error: function(request)
-		{
-			$("#loading2").attr('src', 'images/close.png');
-			$("#email").css("border", "2px solid #FF0000");
-
-		}
-
-	});
+		});
+	}
+	else
+	{
+		$("#loading2").attr('src', 'images/close.png');
+		$("#email").css("border", "2px solid #FF0000");		
+	}
 
 
 
@@ -146,17 +152,24 @@ function checkUsername()
 		type : "POST",
 	    dataType : "json",
 		data : {action:"validation", username:username},
-		success: function(response)
+		success: function(data)
+		{
+			if(data.type == "valid")
+			{
+				$("#loading1").attr('src', 'images/check.png');
+				$("#uName").css("border", "none");
+			}
+			else
+			{
+				$("#loading1").attr('src', 'images/close.png');
+				$("#uName").css("border", "2px solid #FF0000");
+			}
+
+		},
+		error: function(error)
 		{
 			$("#loading1").attr('src', 'images/check.png');
 			$("#uName").css("border", "none");
-	
-
-		},
-		error: function(request)
-		{
-			$("#loading1").attr('src', 'images/close.png');
-			$("#uName").css("border", "2px solid #FF0000");
 		}
 
 	});

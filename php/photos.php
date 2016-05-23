@@ -1,8 +1,9 @@
 <?php
-
+/*
 	ini_set('display_errors', 1);
 	ini_set('display_startup_errors', 1);
 	error_reporting(E_ALL);	
+	*/
 	
 
 	if(isset($_POST['action']))
@@ -75,7 +76,7 @@
 								(`photoURL` , `album` , `photogroup` , `date`)
 								VALUES 
 								('$preFile' , '$album' , '$group' , '$today')";
-						$result = mysqli_query($connect, $query);
+						$result = $connect->query($query);
 						if($result)
 						{
 							move_uploaded_file($temp, $fileLocation);
@@ -94,7 +95,7 @@
 				
 		echo json_encode(array('results' => $message));
 
-
+		$connect->close();
 	}
 
 	function showPhotos()
@@ -110,13 +111,13 @@
 
 
 		$query = "SELECT * FROM `photos` WHERE `album`='$albumName' ORDER BY `date` ASC LIMIT 6 OFFSET $offset ";
-		$result = mysqli_query($connect , $query);
+		$result = $connect->query($query);
 
 
-		if(mysqli_num_rows($result) > 0)
+		if($result->num_rows > 0)
 		{
 			$x = 0;
-			while ($row = mysqli_fetch_assoc($result)) 
+			while ($row = $result->fetch_assoc()) 
 			{
 			     $rows[] = $row;
 			}
@@ -137,6 +138,8 @@
 			echo "error";
 		}
 
+		$connect->close()
+
 	}
 
 	function coverPhoto()
@@ -154,12 +157,12 @@
 			$query = "SELECT *, COUNT(*) FROM `photos` WHERE `photogroup`='$group' GROUP BY `album` ORDER BY `date`";
 		}
 
-        $result = mysqli_query($connect, $query);
+		$result = $connect->query($query);
 
-        if(mysqli_num_rows($result) > 0)
+        if($result->num_rows > 0)
         {
         	$x = 0;
-        	while($row = mysqli_fetch_assoc($result))
+        	while($row = $result->fetch_assoc())
         	{
         		$rows[] = $row;
         	}
@@ -175,6 +178,7 @@
 			echo json_encode($arr);
 
         }
+        $connect->close();
 	}
 
 
