@@ -280,6 +280,15 @@ a {
 	padding: 20px px;
 }
 
+#searchBlogs
+{
+	width: 15%;
+	margin: 0 auto;
+	position: absolute;
+	right: 300;
+	margin-top: 20px;
+}
+
 #page-bgbtm {
 }
 

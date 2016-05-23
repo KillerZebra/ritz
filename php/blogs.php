@@ -34,7 +34,7 @@ error_reporting(E_ALL);
 		$page = $_POST["pages"];
 		$offset = ($page * 3) - 3;
 
-		$query = "SELECT SQL_CALC_FOUND_ROWS * FROM `blogs` ORDER BY `date` DESC LIMIT 3 OFFSET '$offset' ";
+		$query = "SELECT SQL_CALC_FOUND_ROWS * FROM `blogs` ORDER BY `date` DESC LIMIT 3 OFFSET $offset ";
 		$query2 = "SELECT FOUND_ROWS()  AS count" ;
 
 		$result = $connect->query($query);
