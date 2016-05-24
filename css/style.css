@@ -545,6 +545,8 @@ a {
 
 /* Sidebar */
 
+
+
 #sidebar {
 	float: left;
 	width: 280px;
@@ -552,6 +554,25 @@ a {
 	color: #464032;
 	background: #141414;
 	position: static;
+}
+
+.mediaImage
+{
+	height: 30px;
+	width: 30px;
+}
+
+#shortLinks li
+{
+	display: inline-block;
+	margin-left: 0px;
+
+}
+
+#mediaLinks
+{
+	margin-top: 5px;
+	margin-bottom: 5px;
 }
 
 #sidebar ul {
@@ -608,6 +629,19 @@ a {
 #sidebar a:hover {
 	text-decoration: underline;
 	color: #8A8A8A;
+}
+
+#shortLinks li:nth-child(n+1)
+{
+	display: inline-block;
+	margin-left: 10px;
+
+}
+
+#shortLinks li:first-child
+{
+	margin-left: 30px;
+
 }
 
 /* Calendar */
