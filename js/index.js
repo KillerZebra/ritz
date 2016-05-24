@@ -27,7 +27,15 @@ $(document).ready(function()
       $("#pagination").on('click', 'li' , function()
       {
          var number = $(this).html();
-         loadPage(number);
+         if($("#searchBlogs").val() != "")
+         {
+            var title = $("#searchBlogs").val()
+         }
+         else
+         {
+            var title = "";
+         }
+         loadPage(number,title);
       });
 
       $("#searchBlogs").keyup(function()

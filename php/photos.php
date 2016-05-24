@@ -138,7 +138,7 @@
 			echo "error";
 		}
 
-		$connect->close()
+		$connect->close();
 
 	}
 
