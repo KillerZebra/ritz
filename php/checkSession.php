@@ -6,13 +6,13 @@ ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 */
 
-	if(empty($_SESSION['username']) ) 
+	if( empty( $_SESSION[ 'username' ] ) ) 
 	{
-		header("Location: ../index.html");
+		header( "Location: ../index.html" );
 	}
 	else 
 	{
-	    echo json_encode(array("info" => $_SESSION));
+	    echo json_encode(array( "info" => $_SESSION) );
 
 	}
 

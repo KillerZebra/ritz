@@ -7,25 +7,35 @@ error_reporting(E_ALL);
 */
 
 
-	$action = $_POST['action'];
+	$action = $_POST[ 'action' ];
 
-	switch ($action)
+	switch ( $action )
 	{
 		case "register":
+		{
 			registerAccount();
 			break;
+		}
 		case "validation":
+		{
 			validation();
 			break;
+		}
 		case "login":
+		{
 			tryLogin();
 			break;
+		}
 		case "updateEmail":
+		{
 			updateEmail();
 			break;
+		}
 		case "updatePassword":
+		{
 			updatePassword();
 			break;
+		}
 
 	}
 
@@ -34,28 +44,28 @@ error_reporting(E_ALL);
 	{
 		include "../../database/connectToDB.php";
 
-		$fName = $_POST["fName"];
-		$lName = $_POST["lName"];
-		$uName = $_POST["uName"];
-		$email = $_POST["email"];
-		$pass  = $_POST["pass"];
-		$hash = md5($salt.$pass);
+		$fName = $_POST[ "fName" ];
+		$lName = $_POST[ "lName" ];
+		$uName = $_POST[ "uName" ];
+		$email = $_POST[ "email" ];
+		$pass  = $_POST[ "pass" ];
+		$hash = md5( $salt.$pass );
 
 
-		if ($connect->connect_error) 
+		if ( $connect->connect_error ) 
 		{
-	    	die("Connection failed: " . $connect->connect_error);
+	    	die( "Connection failed: " . $connect->connect_error );
 		}
 		else
 		{
 			$query = "INSERT INTO `accounts`
-				(`firstName` , `lastName` , `username` , `email` , `password`)
-				VALUES 
-				('$fName' , '$lName' , '$uName' , '$email' , '$hash')";
+						(`firstName` , `lastName` , `username` , `email` , `password`)
+						VALUES 
+						('$fName' , '$lName' , '$uName' , '$email' , '$hash')";
 
-			$result = $connect->query($query);
+			$result = $connect->query( $query );
 
-			if ($result)
+			if ( $result )
 			{
 				echo "success";
 			}
@@ -76,26 +86,26 @@ error_reporting(E_ALL);
 		include "../../database/connectToDB.php";
 
 		//check if email exists
-		if(isset($_POST["email"]))
+		if( isset($_POST[ "email" ] ) )
 		{
 			$email = $_POST["email"];
-			if ($connect->connect_error) 
+			if ( $connect->connect_error ) 
 			{
-		    	die("Connection failed: " . $connect->connect_error);
+		    	die( "Connection failed: " . $connect->connect_error );
 			}
 			else
 			{
 				$query = "SELECT * FROM `accounts` WHERE `email` = '$email'";
 
-				$result = $connect->query($query);
+				$result = $connect->query( $query );
 
-				if ($result->num_rows == 0)
+				if ( $result->num_rows == 0 )
 				{
-					echo json_encode(array('type' => 'valid', 'message' => "Email not used"));
+					echo json_encode(array( 'type' => 'valid', 'message' => "Email not used" ) );
 				}
 				else
 				{
-					echo json_encode(array('type' => 'error', 'message' => "Email already registered"));
+					echo json_encode(array( 'type' => 'error', 'message' => "Email already registered" ) );
 
 				}
 
@@ -104,10 +114,10 @@ error_reporting(E_ALL);
 		}
 
 		//checks if username exist
-		if(isset($_POST["username"]))
+		if( isset($_POST[ "username" ]) )
 		{
-			$username = $_POST["username"];
-			if ($connect->connect_error) 
+			$username = $_POST[ "username" ];
+			if ( $connect->connect_error ) 
 			{
 		    	die("Connection failed: " . $connect->connect_error);
 			}
@@ -115,15 +125,15 @@ error_reporting(E_ALL);
 			{
 				$query = "SELECT * FROM `accounts` WHERE `username`='$username'";
 
-				$result = $connect->query($query);
+				$result = $connect->query( $query );
 
-				if ($result->num_rows == 0)
+				if ( $result->num_rows == 0 )
 				{
-					echo json_encode(array('type' => 'valid', 'message' => "Username not used"));
+					echo json_encode(array( 'type' => 'valid', 'message' => "Username not used" ) );
 				}
 				else
 				{
-					echo json_encode(array('type' => 'error', 'message' => "Username already registered"));
+					echo json_encode(array( 'type' => 'error', 'message' => "Username already registered" ) );
 
 				}
 
@@ -136,32 +146,32 @@ error_reporting(E_ALL);
 	function tryLogin()
 	{
 		session_start();
-		session_set_cookie_params(6000);
+		session_set_cookie_params( 6000 );
 		include "../../database/connectToDB.php";
 	
-		$uName = $_POST["username"];
-		$pass = $_POST["pass"];
-		$hash = md5($salt.$pass);
+		$uName = $_POST[ "username" ];
+		$pass = $_POST[ "pass" ];
+		$hash = md5( $salt.$pass );
 
 		$query = "SELECT * FROM `accounts` WHERE `username` = '$uName' AND `password` = '$hash'";
 
-		$result = $connect->query($query);
+		$result = $connect->query( $query );
 
 		if ($result->num_rows == 0)
 		{
-			echo json_encode(array('type' => 'error', 'message' => "Bade Password"));
+			echo json_encode(array( 'type' => 'error', 'message' => "Bade Password" ) );
 		}
 		else
 		{
-			$row = $result->fetch_array(MYSQLI_ASSOC);
-	        $_SESSION['username'] = $row['username'];
-	        $_SESSION['fName'] = $row['firstName'];
-	       	$_SESSION['level'] = $row['level'];
-	       	$_SESSION['id'] = $row['id'];
+			$row = $result->fetch_array( MYSQLI_ASSOC );
+	        $_SESSION[ 'username' ] = $row[ 'username' ];
+	        $_SESSION[ 'fName' ] = $row[ 'firstName' ];
+	       	$_SESSION[ 'level' ] = $row[ 'level' ];
+	       	$_SESSION[ 'id' ] = $row[ 'id' ];
 
 
 
-	        echo json_encode(array("info" => $_SESSION));
+	        echo json_encode(array( "info" => $_SESSION ) );
 			
 		}
 
@@ -173,31 +183,31 @@ error_reporting(E_ALL);
 	{
 		include "../../database/connectToDB.php";
 
-		$id = $_POST['id'];
-		$new = $_POST['newInfo'];
-		$current = $_POST['current'];
+		$id = $_POST[ 'id' ];
+		$new = $_POST[ 'newInfo' ];
+		$current = $_POST[ 'current' ];
 
 		$getquery = "SELECT `email` FROM `accounts` WHERE `email`='$current' AND `id`='$id' LIMIT 1";
-		$result = $connect->query($getquery);
+		$result = $connect->query( $getquery );
 
-		if($result->num_rows == 1)
+		if( $result->num_rows == 1 )
 		{
 			$row = $result->fetch_assoc();
 
 
  			$query = "UPDATE `accounts` SET `email`='$new' WHERE `id`='$id' LIMIT 1";
- 			$reuslt = $connect->query($query);
+ 			$reuslt = $connect->query( $query );
 
- 			if($result)
+ 			if( $result )
  			{
-			 	echo json_encode(array('type' => 'success', 'message' => "Successfully updated email"));
+			 	echo json_encode(array( 'type' => 'success', 'message' => "Successfully updated email" ) );
  			}
 
 
 		}
 		else
 		{
-			 echo json_encode(array('type' => 'error', 'message' => "This email is not associated with your account"));
+			 echo json_encode(array( 'type' => 'error', 'message' => "This email is not associated with your account" ) );
 		}
 
 		$connect->close();
@@ -208,33 +218,33 @@ error_reporting(E_ALL);
 	{
 		include "../../database/connectToDB.php";
 
-		$current = $_POST['current'];
-		$newPass  = $_POST['newInfo'];
-		$id = $_POST['id'];
+		$current = $_POST[ 'current' ];
+		$newPass  = $_POST[ 'newInfo' ];
+		$id = $_POST[ 'id' ];
 
-		$currentHash = md5($salt.$current);
-		$newHash = md5($salt.$newPass);
+		$currentHash = md5( $salt.$current );
+		$newHash = md5( $salt.$newPass );
 
 		$getquery = "SELECT `password` FROM `accounts` WHERE `id`='$id' LIMIT 1";
-		$result = $connect->query($query);
+		$result = $connect->query( $query );
 
-		if($result->num_rows == 1)
+		if( $result->num_rows == 1 )
 		{
 			$row = $result->fetch_assoc();
 
-			if($currentHash == $row['password'])
+			if( $currentHash == $row[ 'password' ] )
 			{
 				$query = "UPDATE `accounts` SET `password`='$newHash' WHERE `id`='$id'";
-				$result = $connect->query($query);
+				$result = $connect->query( $query );
 
-				if($result)
+				if( $result )
  				{
-			 		echo json_encode(array('type' => 'success', 'message' => "Successfully updated Password"));
+			 		echo json_encode(array( 'type' => 'success', 'message' => "Successfully updated Password" ) );
  				}
 			}
 			else
 			{
-				echo json_encode(array('type' => 'error', 'message' => "Current password does not match"));
+				echo json_encode(array( 'type' => 'error', 'message' => "Current password does not match" ) );
 			}
 		}		
 		

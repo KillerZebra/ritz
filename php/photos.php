@@ -6,20 +6,26 @@
 	*/
 	
 
-	if(isset($_POST['action']))
+	if( isset( $_POST[ 'action' ] ) )
 	{
-		$action = $_POST['action'];
-		switch ($action)
+		$action = $_POST[ 'action' ];
+		switch ( $action )
 		{
 			case 'uploadFile':
+			{
 				uploadFile();
 				break;
+			}
 			case 'photoPopup':
+			{
 				showPhotos();
 				break;
+			}
 			case 'coverPhotos':
+			{
 				coverPhoto();
 				break;
+			}
 		}
 	}
 
@@ -27,64 +33,64 @@
 	function uploadFile()
 	{
 		include "../../database/connectToDB.php";
-		$group = $_POST['groupName'];
-		$strGroup = str_replace($group, "_" , " ");
-		$album = $_POST['albumName'];
-		$strAlbum = str_replace($album, "_" , " ");
-		$today = date('y-m-j');
+		$group = $_POST[ 'groupName' ];
+		$strGroup = str_replace( $group , "_" , " " );
+		$album = $_POST[ 'albumName' ];
+		$strAlbum = str_replace( $album , "_" , " " );
+		$today = date( 'y-m-j' );
 		$preLoc = "/ritz/images/uploads/" . $strGroup . "/" . $strAlbum;
-		$location = $_SERVER['DOCUMENT_ROOT'] . $preLoc;
+		$location = $_SERVER[ 'DOCUMENT_ROOT' ] . $preLoc;
 		$message = array();
 
-			foreach ($_FILES["photo"]["tmp_name"] as $key => $value)
+			foreach ( $_FILES[ "photo" ][ "tmp_name" ] as $key => $value)
 			{
 				$x = 0;
 				//var_dump($_FILES);
-				if(!empty($_FILES["photo"]["error"][$key]))
+				if( !empty( $_FILES[ "photo" ][ "error" ][ $key ] ) )
 				{
-					$message[$key][$x] = "ERROR: " . $_FILES["photo"]["error"][$key];
+					$message[ $key ][ $x ] = "ERROR: " . $_FILES[ "photo" ][ "error" ][ $key ];
 					$x++;
 				}
-				if($_FILES["photo"]["size"][$key] > 2097152)
+				if( $_FILES[ "photo" ][ "size" ][ $key ] > 2097152 )
 				{
-					$message[$key][$x] = "ERROR: The file <b>$name</b> is too large. Limit 2 MB";
+					$message[ $key ][ $x ] = "ERROR: The file <b>$name</b> is too large. Limit 2 MB";
 					$x++;
 
 				}
 
-				if(empty($message[$key]))
+				if( empty( $message[ $key ] ) )
 				{
-					$temp = $_FILES["photo"]["tmp_name"][$key];
-					$name = $_FILES["photo"]["name"][$key];
-					if (!file_exists($location)) 
+					$temp = $_FILES[ "photo" ][ "tmp_name" ][ $key ];
+					$name = $_FILES[ "photo" ][ "name" ][ $key ];
+					if ( !file_exists( $location ) ) 
 					{
-		    			mkdir($location, 0777, true);
+		    			mkdir( $location , 0777 , true );
 
 					}
 					$preFile = $preLoc . "/" . $name;
 					$fileLocation = $location . "/" . $name;
-					if(file_exists($fileLocation))
+					if( file_exists( $fileLocation ) )
 					{
-						$message[$key][$x] = "ERROR: The file <b>$name</b> already exists. Please rename the file.";
+						$message[ $key ][ $x ] = "ERROR: The file <b>$name</b> already exists. Please rename the file.";
 						$x++;
 
 					}
 
-					if(empty($message[$key]))
+					if( empty( $message[ $key ] ) )
 					{
 						$query = "INSERT INTO `photos`
-								(`photoURL` , `album` , `photogroup` , `date`)
-								VALUES 
-								('$preFile' , '$album' , '$group' , '$today')";
-						$result = $connect->query($query);
-						if($result)
+									(`photoURL` , `album` , `photogroup` , `date`)
+									VALUES 
+									('$preFile' , '$album' , '$group' , '$today')";
+						$result = $connect->query( $query );
+						if( $result )
 						{
-							move_uploaded_file($temp, $fileLocation);
-							$message[$key][$x] = "SUCCESS: The file <b>$name</b> was successfully uploaded";
+							move_uploaded_file( $temp, $fileLocation );
+							$message[ $key ][ $x ] = "SUCCESS: The file <b>$name</b> was successfully uploaded";
 						}
 						else
 						{
-							$message[$key][$x] = "ERROR: Could not upload $name to database";
+							$message[ $key ][ $x ] = "ERROR: Could not upload $name to database";
 
 						}
 
@@ -93,7 +99,7 @@
 				}
 			}
 				
-		echo json_encode(array('results' => $message));
+		echo json_encode(array( 'results' => $message ) );
 
 		$connect->close();
 	}
@@ -102,36 +108,36 @@
 	{
 		include "../../database/connectToDB.php";
 
-		$albumName = $_POST['albumName'];
+		$albumName = $_POST[ 'albumName' ];
 		$arr = array();
-		$page = $_POST['page'];
+		$page = $_POST[ 'page' ];
 		$offset = ($page * 6) - 6;
 
 
 
 
 		$query = "SELECT * FROM `photos` WHERE `album`='$albumName' ORDER BY `date` ASC LIMIT 6 OFFSET $offset ";
-		$result = $connect->query($query);
+		$result = $connect->query( $query );
 
 
-		if($result->num_rows > 0)
+		if( $result->num_rows > 0 )
 		{
 			$x = 0;
-			while ($row = $result->fetch_assoc()) 
+			while ( $row = $result->fetch_assoc() ) 
 			{
 			     $rows[] = $row;
 			}
 
-			foreach($rows as $row)
+			foreach( $rows as $row )
 			{
-				  $album = $row['album'];
-				  $url = $row['photoURL'];
+				  $album = $row[ 'album' ];
+				  $url = $row[ 'photoURL' ];
 
-				  $arr[$album][$x] = $url;
+				  $arr[ $album ][ $x ] = $url;
 				  $x++;
 				
 			}
-			echo json_encode($arr);
+			echo json_encode( $arr );
 		}
 		else
 		{
@@ -145,10 +151,10 @@
 	function coverPhoto()
 	{
 		include "../../database/connectToDB.php";
-		$group = $_POST['groupName'];
+		$group = $_POST[ 'groupName' ];
 
 
-		if($group == "all")
+		if( $group == "all" )
 		{
 			$query = "SELECT *, COUNT(*) FROM `photos` GROUP BY `album` ORDER BY `date`";
 		}
@@ -157,25 +163,25 @@
 			$query = "SELECT *, COUNT(*) FROM `photos` WHERE `photogroup`='$group' GROUP BY `album` ORDER BY `date`";
 		}
 
-		$result = $connect->query($query);
+		$result = $connect->query( $query );
 
-        if($result->num_rows > 0)
+        if( $result->num_rows > 0 )
         {
         	$x = 0;
-        	while($row = $result->fetch_assoc())
+        	while( $row = $result->fetch_assoc() )
         	{
         		$rows[] = $row;
         	}
-        	foreach($rows as $row)
+        	foreach( $rows as $row )
 			{
-				  $album = $row['album'];
-				  $url = $row['photoURL'];
+				  $album = $row[ 'album' ];
+				  $url = $row[ 'photoURL' ];
 
-				  $arr[$album][$x] = $url;
+				  $arr[ $album ][ $x ] = $url;
 				  $x++;
 				
 			}
-			echo json_encode($arr);
+			echo json_encode( $arr );
 
         }
         $connect->close();

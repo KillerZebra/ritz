@@ -1,13 +1,15 @@
 <?php
 
 	
-	$action = $_POST['action'];
+	$action = $_POST[ 'action' ];
 
-	switch ($action)
+	switch ( $action )
 	{
 		case 'getKey':
+		{
 			returnKey();
 			break;
+		}
 
 	}
 
@@ -15,7 +17,7 @@
 	function returnKey()
 	{
 		include "../../database/connectToDB.php";
-		echo json_encode($YTApiKey);
+		echo json_encode( $YTApiKey );
 	}
 
 ?>
