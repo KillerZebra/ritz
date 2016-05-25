@@ -1,18 +1,20 @@
 $(document).ready(function()
 {
+
+  //checks if someone is logged in
 	$.ajax(
       {
          type: "POST",
          url: "../php/checkSession.php",
          data: "",
-         dataType: "json",
+         dataType: "JSON",
          success: function(data)
          {
-            
-            $("#loginTrigger").html('Welcome ' + data.info['fName']);
-            $("#register a").html("Logout");
-            $("#register a").attr("href", "php/logout.php");
-            $("#navigation ul li:last").after("<li><a href='../portal.html'>Portal</a></li>");
+             
+            $( "#loginTrigger" ).html( 'Welcome ' + data.info[ 'fName' ] );
+            $( "#register a" ).html( "Logout" );
+            $( "#register a" ).attr( "href", "php/logout.php" );
+            $( "#navigation ul li:last" ).after( "<li><a href='../portal.html'>Portal</a></li>" );
 
             showPage(data);
 
@@ -30,11 +32,11 @@ $(document).ready(function()
 function showPage(data)
 {
 
-	document.getElementById("content").style.visibility = "visible";
-	$("#title").val("");
-	$("#tinymceEditor").val("");
+	document.getElementById( "content" ).style.visibility = "visible";
+	$( "#title" ).val( "" );
+	$( "#tinymceEditor" ).val( "" );
 
-
+  //loads and setups tinyMCE editor
 	tinymce.init({
 		selector: '#tinymceEditor',
 		height: 500,
@@ -53,14 +55,13 @@ function showPage(data)
   		]
 	});
 
-	$("#formSubmit").click(function()
+	$( "#formSubmit" ).click(function()
   	{
-   		//console.log("hi");
-   		var author = data.info['fName'];
-   		var title = $("#title").val();
-   		var content = tinyMCE.get('tinymceEditor').getContent()
+   		var author = data.info[ 'fName' ];
+   		var title = $( "#title" ).val();
+   		var content = tinyMCE.get( 'tinymceEditor' ).getContent()
 
-   		//console.log("before ajax" + content)
+      //adds the blog to the database
    		$.ajax(
    		{
    			type: "POST",
@@ -69,8 +70,8 @@ function showPage(data)
    			dataType: "JSON",
    			complete: function()
    			{
-          $("#title").val("");
-          tinyMCE.activeEditor.setContent("");
+          $( "#title" ).val( "" );
+          tinyMCE.activeEditor.setContent( "" );
    			}
 
    		});
