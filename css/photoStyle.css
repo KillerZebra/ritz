@@ -392,9 +392,9 @@ select
 {
 	height: 250px;
 	width: 225px;
-	background-color: white;
 	display: inline-block; 
 	margin: 15px 25px 10px 10px;
+	position: relative;
 }
 
 .groupTitle

@@ -62,16 +62,18 @@ $(document).ready(function()
 
      $(document).on( 'click' , '.thumbnail' , function()
       {
-         var urlpath = ratioCheck(($(this).attr( 'src' )));
-         $( "#mainImage" ).attr( 'src',$(this).attr( 'src' ));
-         $( "#mainImage" ).css({ height:urlpath[0] , width:urlpath[1] });
+         var action = "photoPopup";
+         var urlPath = $(this).attr( 'src' );
+         var dimmenson = ratioCheck( action, urlPath );
+         $( "#mainImage" ).attr( 'src' , urlPath );
+         $( "#mainImage" ).css({ height:dimmenson[0] , width:dimmenson[1] });
 
       });
      
       $(document).on( 'click' , '.arrows' , function()
       {
          var page = parseInt($( "#albumViewer" ).attr( 'class' ));
-         $(this).data( 'clicked', true );
+         $(this).data( 'clicked' , true );
          $( "#thumbnails" ).empty();
 
 
@@ -106,20 +108,25 @@ $(document).ready(function()
 
 function loadCoverPhoto(group)
 {
+   var links = [];
+   var action = "coverPhotos";
    $( "#allPhotos" ).empty();
+
    $.ajax(
    {
       type: "POST",
       url: "php/photos.php",
-      data: {action:"coverPhotos" , groupName:group},
+      data: {action:action , groupName:group},
       dataType: "JSON",
       success: function( data )
       {
-         var keys = Object.keys( data );
+         var key = Object.keys( data );
          for ( var x = 0; x < Object.keys( data ).length; x++ )
          {
-            $( "#allPhotos" ).append( "<div class='groups'><img src=../.." + data[keys[x]][x] + "><div class='groupTitle'>" + keys[x] + "</div></div>" );
-
+            var ratio = ratioCheck( action , data[key[x]][x] );
+            links.push( [data[key[x]][x] , ratio[0] , ratio[1] ] );
+            $( "#allPhotos" ).append( "<div class='groups'><img id='photo" + x + "' src=../.." + links[x][0] + "><div class='groupTitle'>" + key[x] + "</div></div>" );
+            $( "#photo" + x ).css({ height:links[x][1] , width:links[x][2] });
          }
       }
    });
@@ -129,22 +136,24 @@ function loadSelectedPhoto( name )
 {
    var links = [];
    var page = parseInt($( "#albumViewer" ).attr( 'class' ));
+   var action = "photoPopup";
    
    //controls the photos that appear in the popup
    $.ajax(
    {
       type: "POST",
       url: "php/photos.php",
-      data: {action:"photoPopup", albumName:name, page:page},
+      data: {action:action , albumName:name , page:page},
       dataType: "JSON",
       success: function( data )
       {
-         accessData( data );
+         accessData( action , data );
       }
    });
-   function accessData( data )
-   {
 
+
+   function accessData( action , data )
+   {
       var key = Object.keys( data );
       length = data[key[0]].length;
       if(length < 6)
@@ -159,8 +168,7 @@ function loadSelectedPhoto( name )
       
       for( var y = 0; y < length; y++ )
       {
-
-         var ratio = ratioCheck( data[key[0]][y] );
+         var ratio = ratioCheck( action , data[key[0]][y] );
          links.push( [data[key[0]][y] , ratio[0] , ratio[1]] );
       }
 
@@ -180,28 +188,41 @@ function loadSelectedPhoto( name )
    
 }
 
-function ratioCheck( data )
+function ratioCheck( action , data )
 {
    var i = new Image();
    i.src = data;
    var height = i.height;
    var width = i.width;
    var dimmensions = []
-   if( height > 480 )
+
+   if(action == "photoPopup")
    {
-      while( height > 480 )
+      var maxHeight = 480;
+      var maxWidth = 890;
+   }
+   else if(action == "coverPhotos")
+   {
+      var maxHeight = 250;
+      var maxWidth = 225; 
+   }
+
+
+   if( height > maxHeight )
+   {
+      while( height > maxHeight )
       {
-         ratio = 480 / height;
+         ratio = maxHeight / height;
          height = ratio * height;
          width = ratio * width;
       }
    }
 
-   if( width > 890 )
+   if( width > maxWidth )
    {
-      while( height > 890 )
+      while( height > maxWidth )
       {
-         ratio = 890 / width;
+         ratio = maxWidth / width;
          height = ratio * height;
          width = ratio * width;
       }
