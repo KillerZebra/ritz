@@ -64,7 +64,7 @@ $(document).ready(function()
       {
          var action = "photoPopup";
          var urlPath = $(this).attr( 'src' );
-         var dimmenson = ratioCheck( action, urlPath );
+         var dimmenson = ratioCheck( action , urlPath );
          $( "#mainImage" ).attr( 'src' , urlPath );
          $( "#mainImage" ).css({ height:dimmenson[0] , width:dimmenson[1] });
 
