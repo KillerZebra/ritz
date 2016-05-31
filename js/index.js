@@ -1,4 +1,5 @@
 
+var blogHolder;
 $(document).ready(function() 
 {
    var timer;
@@ -58,6 +59,23 @@ $(document).ready(function()
 
       });
 
+
+      $( ".post" ).on( 'click' , '.fullBlog' , function()
+      {
+         var post = $( this ).parent().closest( '.post' ).attr( 'id' );
+         post = post.substr(4,1);
+
+         var title = blogHolder.blogs[ post ][ 'title' ];
+         var date = blogHolder.blogs[ post ] [ 'date' ];
+         var author = blogHolder.blogs[ post ] [ 'author' ];
+         var content = blogHolder.blogs[ post ] [ 'content' ];
+
+         $('#blogViewer').css({'visibility':'visible'});
+
+
+      });
+
+
    //facebook mini page view
    (function( d, s, id )
    {
@@ -101,6 +119,7 @@ function loadPage( pageNumber, title )
          dataType: "JSON",
          success: function( data )
          {
+            blogHolder = data;
             //data.blogs.length-1
             y = 1;
             for( var x = 1; x <= 3; x++ )
@@ -120,12 +139,16 @@ function loadPage( pageNumber, title )
                      $( "#post" + x ).show();
 
                   }
+
                   $( "#title" + x ).html(data.blogs[y][ 'title' ] ); 
                   $( "#author" + x ).html(data.blogs[y][ 'author' ] );
-                  $( "#date" + x ).html(data.blogs[y][ 'date' ] ); 
+                  $( "#date" + x ).html(data.blogs[y][ 'date' ] );
+
 
                   var short = shortenText(data.blogs[y][ 'content' ] , 1500);
                   $( "#entry" + x ).html( short ); 
+
+
                } 
                   y++;
                
@@ -150,15 +173,19 @@ function memberAccess()
    $( "#LoginFormPopup" ).append( "<div id='LFPUAccount'><div id='LFPUTitle'>Account</div><ul><li>Change Email</li><li>Change Password</li></ul></div>" )
 }
 
-function shortenText( text , maxLength)
+function shortenText( text , maxLength )
 {
-   console.log(text.length);
-   if ( text.length > maxLength)
+   if ( text.length > maxLength )
    {
-      text = text.substr( 0 , maxLength - 3 ) + "</br></br><div class='fullBlog'>Click for More</div>";
+      text = text.substr( 0 , maxLength ) + "</br></br><div class='fullBlog'>Click for More</div>";
    }
 
    return text;
+}
+
+function blogPopUp()
+{
+
 }
 
 
