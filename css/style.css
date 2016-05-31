@@ -373,7 +373,13 @@ a {
 .post .entry {
 	padding: 0px 0px 20px 0px;
 	padding-bottom: 20px;
-	text-align: justify;
+
+}
+
+.fullBlog
+{
+	color: white;
+	text-align: center;
 }
 
 .links {

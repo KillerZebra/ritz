@@ -123,7 +123,9 @@ function loadPage( pageNumber, title )
                   $( "#title" + x ).html(data.blogs[y][ 'title' ] ); 
                   $( "#author" + x ).html(data.blogs[y][ 'author' ] );
                   $( "#date" + x ).html(data.blogs[y][ 'date' ] ); 
-                  $( "#entry" + x ).html(data.blogs[y][ 'content' ] ); 
+
+                  var short = shortenText(data.blogs[y][ 'content' ] , 1500);
+                  $( "#entry" + x ).html( short ); 
                } 
                   y++;
                
@@ -148,6 +150,16 @@ function memberAccess()
    $( "#LoginFormPopup" ).append( "<div id='LFPUAccount'><div id='LFPUTitle'>Account</div><ul><li>Change Email</li><li>Change Password</li></ul></div>" )
 }
 
+function shortenText( text , maxLength)
+{
+   console.log(text.length);
+   if ( text.length > maxLength)
+   {
+      text = text.substr( 0 , maxLength - 3 ) + "</br></br><div class='fullBlog'>Click for More</div>";
+   }
+
+   return text;
+}
 
 
 
