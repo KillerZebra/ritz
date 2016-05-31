@@ -70,6 +70,9 @@ $(document).ready(function()
       if( $(this).val() == "" )
       {
          getVideos( uploadID );
+         $( "#videoPagination ul" ).empty();
+         $( ".mainVideo" ).empty();
+         $( "#thumbnail" ).empty();
          $( "#searchField" ).css( "border", "none" )
 
       }
