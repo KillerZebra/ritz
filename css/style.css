@@ -318,7 +318,70 @@ a {
 	text-align: center;
 }
 
+#blogViewerCloseButton
+{
+    height: 15px;
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    width: 15px;	
+}
 
+#blogViewerCloseButton:hover
+{
+	cursor: pointer;	
+}
+
+#blogViewerTitle
+{
+	margin-bottom: 10px;
+	padding: 12px 0 0 0px;
+	letter-spacing: -1px;
+	color: #000000;
+	text-transform: lowercase;
+	color: #860B28;
+	border: none;
+
+}
+
+#blogViewerMeta
+{
+	height: 30px;
+	background: #1F1F1F;
+	margin: 0px;
+	padding: 0px 20px 0px 20px;
+	text-align: left;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 13px;
+	font-weight: bold;
+}
+
+#blogViewerMeta a {
+	color: #FFFFFF;
+}
+
+#blogViewerDate
+{
+	float: left;
+	height: 24px;
+	padding: 3px 0px;
+	color: #FFFFFF;	
+}
+
+#blogViewerPosted
+{
+	float: right;
+	height: 24px;
+	padding: 3px 15px;
+	border-left: 1px solid #000000;
+	color: #FFFFFF;
+}
+
+#blogViewerEntry
+{
+	padding: 0px 0px 20px 0px;
+	padding-bottom: 20px;
+}
 
 .post {
 	margin-bottom: 15px;
@@ -335,13 +398,13 @@ a {
 	padding: 12px 0 0 0px;
 	letter-spacing: -1px;
 	color: #000000;
-}
-
-.post .title 
-{
 	text-transform: lowercase;
 	color: #860B28;
 	border: none;
+}
+
+.post .title:hover {
+	cursor: pointer;
 }
 
 .post .meta {
@@ -363,20 +426,6 @@ a {
 }
 
 .posted{
-	float: right;
-	height: 24px;
-	padding: 3px 15px;
-	border-left: 1px solid #000000;
-	color: #FFFFFF;
-}
-
-#author
-{
-
-}
-
-#postedBy
- {
 	float: right;
 	height: 24px;
 	padding: 3px 15px;

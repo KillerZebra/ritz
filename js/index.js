@@ -70,8 +70,40 @@ $(document).ready(function()
          var author = blogHolder.blogs[ post ] [ 'author' ];
          var content = blogHolder.blogs[ post ] [ 'content' ];
 
-         $('#blogViewer').css({'visibility':'visible'});
+         $( '#blogViewer' ).css({'visibility':'visible'});
 
+         blogPopUp( title , date , author , content );
+
+
+      });
+
+      $( ".title").click(function()
+      {
+         var post = $( this ).attr('id');
+         post = post.substr(5,1);
+         var title = blogHolder.blogs[ post ][ 'title' ];
+         var date = blogHolder.blogs[ post ] [ 'date' ];
+         var author = blogHolder.blogs[ post ] [ 'author' ];
+         var content = blogHolder.blogs[ post ] [ 'content' ];
+
+         $( '#blogViewer' ).css({'visibility':'visible'});
+
+         blogPopUp( title , date , author , content );
+
+      });
+
+      $( "#blogViewerCloseButton" ).click(function()
+      {
+            clearPopup();
+      });
+
+      $(document).mouseup(function(e)
+      {
+         var container = $( "#page" );
+         if ( container.has( e.target ).length === 0 )
+         {
+            clearPopup();
+         }
 
       });
 
@@ -144,7 +176,7 @@ function loadPage( pageNumber, title )
                   $( "#author" + x ).html(data.blogs[y][ 'author' ] );
                   $( "#date" + x ).html(data.blogs[y][ 'date' ] );
 
-
+                  console.log(data.blogs[y][ 'content' ].length);
                   var short = shortenText(data.blogs[y][ 'content' ] , 1500);
                   $( "#entry" + x ).html( short ); 
 
@@ -173,18 +205,32 @@ function memberAccess()
    $( "#LoginFormPopup" ).append( "<div id='LFPUAccount'><div id='LFPUTitle'>Account</div><ul><li>Change Email</li><li>Change Password</li></ul></div>" )
 }
 
-function shortenText( text , maxLength )
+function shortenText( content , maxLength )
 {
-   if ( text.length > maxLength )
+   var strip = $(content).text();
+   if ( strip.length > maxLength )
    {
-      text = text.substr( 0 , maxLength ) + "</br></br><div class='fullBlog'>Click for More</div>";
+      content = content.substr( 0 , maxLength-4 ) + "</br></br><div class='fullBlog'>Click for More</div>";
    }
 
-   return text;
+   return content;
 }
 
-function blogPopUp()
+function blogPopUp( title , date , author , content )
 {
+   $( "#blogViewerPost" ).append( "<h2 id='blogViewerTitle'>" + title + "</h2><p id='blogViewerMeta'><span id='blogViewerDate'>" + date + "</span>"
+                              + "<span id='blogViewerPosted'>Posted by <a href='#' id='blogViewerAuthor'>" + author + "</a></span></span></p><div style='clear: both;'>"
+                              + "&nbsp;</div><div id='blogViewerEntry'>" + content + "</div>" );
+
+
+
+}
+
+
+function clearPopup()
+{
+   $( '#blogViewer' ).css({'visibility':'hidden'});
+   $( "#blogViewerPost" ).empty();
 
 }
 
