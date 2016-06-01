@@ -154,6 +154,7 @@ function loadPage( pageNumber, title )
          success: function( data )
          {
             blogHolder = data;
+            console.log(blogHolder);
             //data.blogs.length-1
             y = 1;
             for( var x = 1; x <= 3; x++ )
@@ -178,6 +179,7 @@ function loadPage( pageNumber, title )
                   $( "#author" + x ).html(data.blogs[y][ 'author' ] );
                   $( "#date" + x ).html(data.blogs[y][ 'date' ] );
 
+                  console.log(data.blogs[y][ 'content' ].length);
                   var short = shortenText(data.blogs[y][ 'content' ] , 1500);
                   $( "#entry" + x ).html( short ); 
 
@@ -208,16 +210,8 @@ function memberAccess()
 
 function shortenText( content , maxLength )
 {
-   if(content.match(/<(\w+)((?:\s+\w+(?:\s*=\s*(?:(?:"[^"]*")|(?:'[^']*')|[^>\s]+))?)*)\s*(\/?)>/)) 
-   {
-      var strip = $(content).text();
-   }
-   else
-   {
-      var strip = content;
-   }
 
-
+   var strip = $(content).text();
    if ( strip.length > maxLength )
    {
       content = content.substr( 0 , maxLength-4 ) + "</br></br><div class='fullBlog'>Click for More</div>";
