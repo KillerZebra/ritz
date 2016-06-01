@@ -208,7 +208,8 @@ function memberAccess()
 
 function shortenText( content , maxLength )
 {
-   if(content.match(/<(\w+)((?:\s+\w+(?:\s*=\s*(?:(?:"[^"]*")|(?:'[^']*')|[^>\s]+))?)*)\s*(\/?)>/)) 
+   //checks to see if html is found in the content
+   if(content.match(/<(\w+)((?:\s+\w+(?:\s*=\s*(?:(?:"[^"]*")|(?:'[^']*')|[^>\s]+))?)*)\s*(\/?)>/) != null) 
    {
       var strip = $(content).text();
    }
